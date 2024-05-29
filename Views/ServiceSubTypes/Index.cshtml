@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SQMS.Models.ViewModels.VMServiceType>
+
+@{
+    ViewBag.Title = "Service List";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Service Sub Type > List</h4>
+
+
+        <a href='@Url.Action("Create", "ServiceSubTypes")' style="margin-bottom : 10px;">
+            <button class="btn btn-color" style="margin-bottom : 10px;">Create New Service</button>
+        </a>
+        <button class="btn btn-color" style="margin-bottom : 10px;" onclick="TatTime()" id="SetTatTime">Set Warning Time</button>
+        <button class="btn btn-color tatCheckBoxFunc" style="margin-bottom : 10px; display:none;" onclick="Timer()" id="SetTime">Set Time</button>
+        <button class="btn btn-color tatCheckBoxFunc" style="margin-bottom: 10px; display:none" onclick="CancelTat()" id="Cancel">Cancel</button>
+        <div class="col-md-12 scrollbar table-scroll">
+
+            <table class="table table-hover table-bordered" id="data">
+                <tr id="Hedding">
+                    <th>Type Name</th>
+                    <th>Service Name</th>
+                    <th>Duration(Minutes)</th>
+                    <th></th>
+                    <th></th>
+                    <th class="tatCheckBoxFuncAll" style="display:none">
+                        <input type="checkbox" id="checkAll" name="checkAll">
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.service_type_name</td>
+                        <td>@item.service_sub_type_name</td>
+                        <td>@item.max_duration</td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="ServiceSubTypes" asp-route-id="@item.service_sub_type_id" class="btn btn-color">Edit</a>
+                        </td>
+                        <td>
+                            @if (item.is_active == 0)
+                            {
+                                <label>Deactivated</label>
+
+                                <br />
+                                <button class="btn btn-color" onclick="SetStatus('@item.service_sub_type_id',1)">Activate</button>
+                            }
+                            else
+                            {
+                                <label>Activated</label>
+
+                                <br />
+                                <button class="btn btn-color" onclick="SetStatus('@item.service_sub_type_id',0)">Deactivate</button>
+                            }
+                        </td>
+                        <td class="tatCheckBoxFunc" style="display:none">
+                            <input type="checkbox" class="service_sub_type_check_box" data="@item.service_sub_type_id" />
+                        </td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade tat-modal" id="mdlTatTimeSet" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Set TAT Warning Time</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="align-content:center">
+                <input type="number" id="tatTime"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-color btn-close" onclick="SaveTatTime();">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/sqms/service-sub-type-V8.0.js"></script>
+    <script src="~/Scripts/modal/modal-V8.0.js"></script>
+}

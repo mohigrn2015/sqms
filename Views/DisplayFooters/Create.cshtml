@@ -1,0 +1,47 @@
+﻿@model SQMS.Models.tblDisplayFooter
+
+@{
+    ViewBag.Title = "Display Footer Create";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Display Footer > Create</h4>
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(m => m.content_en, 3, 20, new { @class = "form-control Next", @row = "3", @placeholder = "Content (English)" })
+                            @Html.ValidationMessageFor(model => model.content_en, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(m => m.content_bn, 3, 20, new { @class = "form-control Next", @row = "3", @placeholder = "Content (Bangla)" })
+                            @Html.ValidationMessageFor(model => model.content_bn, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input type="submit" value="Create" class="btn btn-color" />
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Back to List", "Index")
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/knockout.validation.js"></script>

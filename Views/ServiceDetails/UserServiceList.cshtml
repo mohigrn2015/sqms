@@ -1,0 +1,120 @@
+﻿@using SQMS.Models.ViewModels;
+@model IEnumerable<SQMS.Models.ViewModels.VMDashboardUserService>
+
+<div class="row">
+
+    <div class="col-lg-12 col-md-12 scrollbar table-scroll">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <h4 class="panel-title">
+                    User Summary
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-12 col-md-12 table-bordered">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 tr-odd"><b>User&nbsp;Name</b></div>
+                        <div class="col-lg-4 col-md-4 tr-odd">@ViewBag.UserName</div>
+                        <div class="col-lg-2 col-md-2 tr-odd"><b>Counter</b></div>
+                        <div class="col-lg-4 col-md-4 tr-odd">@ViewBag.CounterNo</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2"><b>Total&nbsp;Pending</b></div>
+                        <div class="col-lg-4 col-md-4">@ViewBag.TotalPending</div>
+                        <div class="col-lg-2 col-md-2"><b>Total&nbsp;Served</b></div>
+                        <div class="col-lg-4 col-md-4">@ViewBag.TotalServed</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 tr-odd"><b>Highest&nbsp;Waiting</b></div>
+                        <div class="col-lg-4 col-md-4 tr-odd">@ViewBag.HighestWaiting</div>
+                        <div class="col-lg-2 col-md-2 tr-odd"><b>Average&nbsp;Waiting</b></div>
+                        <div class="col-lg-4 col-md-4 tr-odd">@ViewBag.AverageWaiting</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2"><b>Login&nbsp;Time</b></div>
+                        <div class="col-lg-4 col-md-4">@ViewBag.LoginTime</div>
+                        <div class="col-lg-2 col-md-2"><b>Serving&nbsp;Time</b></div>
+                        <div class="col-lg-4 col-md-4">@ViewBag.ServingTime</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <b class="btn btn-color">Token Status:</b>
+        <table class="table table-hover table-bordered" id="data">
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Total</th>
+                    <th>Served</th>
+                    <th>Serving</th>
+                    <th>Waiting</th>
+                    <th>Missing</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (VMDashboardUserToken item in ViewBag.tokenList)
+                {
+                    <tr>
+                        <td>@item.service_name</td>
+                        <td>@item.total</td>
+                        <td>@item.served</td>
+                        <td>@item.serving</td>
+                        <td>@item.waiting</td>
+                        <td>@item.missing</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <b class="btn btn-color">Service Status:</b>
+        <table class="table table-hover table-bordered" id="data">
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Served</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.service_name</td>
+                        <td>@item.served</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <b class="btn btn-color">Service Details:</b>
+        <table class="table table-hover table-bordered" id="data">
+            <thead>
+                <tr>
+                    <th>Token No</th>
+                    <th>Customer Type</th>
+                    <th>Counter</th>
+                    <th>Service</th>
+                    <th>Issue Time</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (VMDashboardUserServiceDetail item in ViewBag.serviceDetailList)
+                {
+                    <tr>
+                        <td>@item.token_no_formated</td>
+                        <td>@item.customer_type</td>
+                        <td>@item.counter</td>
+                        <td>@item.service</td>
+                        <td>@item.issue_time_formated</td>
+                        <td>@item.start_time_formated</td>
+                        <td>@item.end_time_formated</td>
+                        <td>@item.service_status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

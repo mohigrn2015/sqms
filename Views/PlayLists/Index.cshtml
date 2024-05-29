@@ -1,0 +1,78 @@
+﻿@model IEnumerable<SQMS.Models.tblPlayList>
+@{
+    ViewBag.Title = "Play List Information";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Play List > List </h4>
+        <div class="row">
+            <div class="col-md-3" style="margin-bottom: 10px;">
+                <a asp-action="Create" asp-controller="PlayLists">
+                    <button class="btn btn-color" style="margin-bottom: 10px;">New Play List</button>
+                </a>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+                <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
+            </div>
+        </div>
+
+        <div class="col-md-12 scrollbar table-scroll">
+            <table class="table table-hover table-bordered" id="data">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>National?</th>
+                        <th>Name</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (item.is_global == 0)
+                                {
+                                    <a asp-action="SetNational" asp-controller="PlayLists" asp-route-id="@item.playlist_id" class="btn btn-color">Set National</a>
+                                }
+                            </td>
+                            <td style="text-align:center">
+                                @if (item.is_global > 0)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.playlist_name)
+                            </td>
+                            <td>
+                                <a asp-action="Index" asp-controller="PlayListItems" asp-route-playlist_id="@item.playlist_id" class="btn btn-color">Items</a>
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="PlayLists" asp-route-id="@item.playlist_id" class="btn btn-color">Edit</a>
+                            </td>
+                            <td>
+                                @if (item.is_global == 0)
+                                {
+                                    <a asp-action="Delete" asp-controller="PlayLists" asp-route-id="@item.playlist_id" class="btn btn-color">Delete</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/sqms/branch.js"></script>
+}
+

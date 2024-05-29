@@ -1,0 +1,81 @@
+﻿@model SQMS.Models.tblBranch
+
+@{
+    ViewBag.Title = "Branch Information Edit";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Branch > Edit</h4>
+        <form asp-controller="Branches" asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.branch_id)
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="branch_name">Branch Name</label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="branch_name" name="branch_name" value="@Model.branch_name" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.branch_name)</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="address">Address</label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="address" name="address" value="@Model.address" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.address)</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="contact_person">Contact Person</label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="contact_person" name="contact_person" value="@Model.contact_person" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.contact_person)</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="contact_no">Contact No</label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="contact_no" name="contact_no" value="@Model.contact_no" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.contact_no)</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="display_next">Display Number</label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="display_next" name="display_next" value="@Model.display_next" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.display_next)</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="static_ip">Static IP</label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="static_ip" name="static_ip" value="@Model.static_ip" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.static_ip)</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-6">
+                        <input type="submit" value="Save" class="btn btn-color" />
+                        <button class="btn btn-color">
+                            @Html.ActionLink("Back to List", "Index")
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>       
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/knockout.validation.js"></script>

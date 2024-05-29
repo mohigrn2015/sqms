@@ -1,0 +1,44 @@
+﻿@model SQMS.Models.tblServiceDetail
+@{
+    ViewBag.Title = "Service Detail Info";
+}
+<div>
+    <h4>Service Detail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Customer Name
+        </dt>
+        <dd>
+            @Model.tblCustomer.customer_name
+        </dd>
+        <dt>
+            Contact No
+        </dt>
+        <dd>
+            @Model.tblTokenQueue.contact_no
+        </dd>
+        <dt>
+            Issues
+        </dt>
+        <dd>
+            @Model.issues
+        </dd>
+        <dt>
+            Solution
+        </dt>
+        <dd>
+            @Model.solutions
+        </dd>
+        <dt>
+            Service Date
+        </dt>
+        <dd>
+            @Model.service_datetime
+        </dd>
+    </dl>
+</div>
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.service_id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</p>

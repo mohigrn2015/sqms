@@ -1,0 +1,25 @@
+﻿@model SQMS.Models.tblServiceType
+@{
+    ViewData["Title"] = "Service Type Delete";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>tblServiceType</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>Service Type Name</dt>
+            <dd>@Model.service_type_name</dd>
+        </dl>
+    </div>
+    <p>
+        <a asp-action="Edit" asp-controller="ServiceTypes" asp-route-id="@Model.service_type_id">Edit</a> |
+        <a asp-action="Index" asp-controller="ServiceTypes">Back to List</a>
+    </p>
+</body>
+</html>

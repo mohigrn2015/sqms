@@ -1,0 +1,59 @@
+﻿@model SQMS.Models.tblPlayListItem;
+@{
+    ViewBag.Title = "Play List Create";
+}
+<link href="~/Content/themes/base/jquery-ui-V8.0.min.css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Play List > @Model.playlist_name> Item > Edit</h4>
+
+        <div class="col-md-7">
+            <form asp-action="Edit" asp-controller="PlayListItems" method="post" enctype="multipart/form-data">
+                <div class="form-horizontal">
+                    <input asp-for="playlistitem_id" type="hidden" />
+                    <input asp-for="playlist_id" type="hidden" />
+                    <input asp-for="item_url" type="hidden" />
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="playlistName">Playlist Name</label>
+                        <div class="col-md-9">
+                            <input asp-for="playlist_name" class="form-control Next" disabled placeholder="Playlist Name" />
+                            <span asp-validation-for="playlist_name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="fileName">File Name</label>
+                        <div class="col-md-9">
+                            <input asp-for="file_name" class="form-control Next" readonly placeholder="File Name" />
+                            <span asp-validation-for="file_name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="durationInSecond">Duration In Second</label>
+                        <div class="col-md-9">
+                            <input asp-for="duration_in_second" class="form-control Next" placeholder="Duration In Second" />
+                            <span asp-validation-for="duration_in_second" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="sortOrder">Sort Order</label>
+                        <div class="col-md-9">
+                            <input asp-for="sort_order" class="form-control Next" placeholder="Sort Order" />
+                            <span asp-validation-for="sort_order" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <button type="submit" class="btn btn-color">Save</button>
+                            <a asp-action="Index" asp-route-playlist_id="@Model.playlist_id" class="btn btn-color">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+                @Html.AntiForgeryToken()
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/knockout.validation.js"></script>
+

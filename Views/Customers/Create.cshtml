@@ -1,0 +1,86 @@
+﻿@model SQMS.Models.tblCustomer
+@{
+    ViewBag.Title = "Create New Customer";
+}
+
+<div class="container">
+
+    <div class="row">
+        <h4 class="page-head-line">Customer > Create</h4>
+
+        <div class="col-md-14">
+
+            <div class="col-md-4">
+                <fieldset>
+                    <legend style="color : #f46f43">Customer Upload from excel</legend>
+                    <div>
+                        <strong class="error">@ViewBag.ErrorMessage</strong>
+                        <form method="post" asp-action="Index" asp-controller="Customers" enctype="multipart/form-data">
+                            <table class="table table-striped">
+                                <tr>
+                                    <td>
+                                        <input type="file" id="FileUpload1" name="FileUpload1" class="btn btn-color" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="submit" id="Submit" name="Submit" value="Submit" class="btn btn-color" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+
+                        <br />
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="col-md-5">
+                <form>
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4 style="color : #f46f43"> Create New Customer</h4>
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="customer_name" class="control-label col-md-4"></label>
+                            <div class="col-md-8">
+                                <input asp-for="customer_name" class="form-control" placeholder="Customer Name" />
+                                <span asp-validation-for="customer_name" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="contact_no" class="control-label col-md-4"></label>
+                            <div class="col-md-8">
+                                <input asp-for="contact_no" class="form-control" placeholder="Contact No" />
+                                <span asp-validation-for="contact_no" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="address" class="control-label col-md-4"></label>
+                            <div class="col-md-8">
+                                <input asp-for="address" class="form-control" placeholder="Address" />
+                                <span asp-validation-for="address" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <input type="submit" value="Create" class="btn btn-color" />
+                                <button class="btn btn-color">
+                                    @Html.ActionLink("Back to List", "Index")
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/knockout.validation.js"></script>

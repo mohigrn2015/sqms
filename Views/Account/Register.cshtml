@@ -1,0 +1,140 @@
+﻿@using SQMS.Utility
+@model SQMS.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "User Register";
+}
+
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Create a new User</h4>
+        <div class="col-md-2"></div>
+        <div class="col-md-5">
+            <form asp-controller="Account" asp-action="Register" method="post" class="form-horizontal" role="form">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                @if (ApplicationSetting.AllowActiveDirectoryUser)
+                {
+                    <div class="form-group" style="display: none">
+                        <div class="col-md-8">
+                            <select class="form-control" name="is_active_directory_user" id="is_active_directory_user" disabled="disabled">
+                                @foreach (var item in ViewBag.is_active_directory_user)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(m => m.is_active_directory_user, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <input type="hidden" asp-for="is_active_directory_user" value="0" />
+                }
+                <div class="form-group">
+                    <label asp-for="branch_id" class="control-label col-md-4"></label>
+                    <div class="col-md-8">
+                        <select class="form-control" name="branch_id" id="branch_id">
+                            <option value="">Select One Branch</option>
+                            @foreach (var item in ViewBag.branchList)
+                            {
+                                <option value="@item.branch_id">@item.branch_name</option>
+                            }
+                        </select>
+                        @Html.ValidationMessageFor(m => m.branch_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" style="display: none;text-align:initial">
+                    <label asp-for="name" class="control-label col-md-4"></label>
+                    <div class="col-md-8">
+                        <select class="form-control" name="name" id="name">
+                            @foreach (var item in ViewBag.name)
+                            {
+                                <option value="@item.Name">@item.Name</option>
+                            }
+                        </select>
+@*                         @Html.DropDownList("name", null, "Select One Role", htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+ *@                        @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Hometown" class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="Hometown" class="form-control" placeholder="Full Name" />
+                        @Html.ValidationMessageFor(m => m.Hometown, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mobile" class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="Mobile" class="form-control" placeholder="Mobile" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="Email" class="form-control" placeholder="Email" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserName" class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="UserName" class="form-control alphaNumericDot" placeholder="User Name" />
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div id="passwordDiv">
+                    <div class="form-group">
+                        <label asp-for="Password" class="col-md-4 control-label"></label>
+                        <div class="col-md-8">
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmPassword" class="col-md-4 control-label"></label>
+                        <div class="col-md-8">
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" />
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <input type="submit" class="btn btn-color" value="Register" />
+                        <a asp-controller="BranchUsers" asp-action="Index" class="btn btn-color">Back to List</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var inp = $("#branch_id option:selected").text();
+            if (inp == "Select One Branch") {
+                $("#branch_id").removeAttr('readonly');
+            } else {
+                $("#branch_id").attr('readonly', 'readonly');
+            }
+
+            ChangeInternalExternalView($('#is_active_directory_user').val());
+
+            $('#is_active_directory_user').on('change', function () {
+                ChangeInternalExternalView(this.value);
+            });
+        });
+
+        function ChangeInternalExternalView(isActiveDirectoryUser) {
+            if (isActiveDirectoryUser > 0) {
+                $("#passwordDiv").hide(150);
+            } else {
+                $("#passwordDiv").show(150);
+            }
+        }
+    </script>
+}

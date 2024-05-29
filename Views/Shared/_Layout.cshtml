@@ -1,0 +1,143 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using SQMS.Utility;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _session
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        var pathURL = window.location.pathname;
+        var pageURL = window.location.href;
+        var basedURL = window.location.origin + "/SQMS_Core/";
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Smart Queue Management</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/Content/jquery.fancybox-plus.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap-V8.0.css" rel="stylesheet" />
+    <link href="~/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Scripts/toastr/toastify-V8.0.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/assets/css/style-V8.1.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui-V8.0.css" rel="stylesheet" />
+    <link href="~/Content/jquery.timepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui-V8.0.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+@*     <script type="text/javascript">
+        var pathURL = window.location.pathname;
+        var pageURL = window.location.href; 
+        var basedURL = window.location.origin + "/SQMS_Core/";
+    </script> *@
+    <script src="~/Scripts/Chart.bundle.min.js"></script>
+    <script src="~/Scripts/Chart.js"></script>
+    <script src="~/Scripts/toastr/toastify.js"></script>
+    <script src="~/Scripts/jquery.timepicker.min.js"></script>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="navbar navbar-inverse set-radius-zero" style="background-color: #FFCB24;">
+        <div class="container">
+            <div class="row" style="height:100px">
+                <div class="col-md-1">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">
+                            <img id="logo" src="~/img/logo.png" height="90" />
+                        </a>
+                    </div>
+                </div>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div class="col-md-11" id="bannardiv">
+                        <div class="col-sm-12 banner">
+                            Smart Queue Management System
+                            @*<img src="~/img/bl-banner.png" />*@
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-11 col-sm-11" id="bannardiv">
+                        <div class="col-sm-12 banner">
+                            Smart Queue Management System
+                            @*<img src="~/img/bl-banner.png" />*@
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- USER PROFILE SECTION -->
+    @if (User.Identity.IsAuthenticated)
+    {
+        SessionManager sm = new SessionManager(_session);
+        if (!string.IsNullOrEmpty(sm.user_id))
+        {
+            <section class="user-profile-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 user-info">
+                            Welcome!&nbsp;@sm.user_name,&nbsp;@(sm.branch_id > 0 ? @Html.Raw("at " + sm.branch_name) : "")@(Convert.ToInt32(sm.counter_idv2) > 0 ? @Html.Raw(":- Counter# " + sm.counter_no) : "")&nbsp;as&nbsp;@(User.IsInRole("Admin") ? "Super Admin" : (User.IsInRole("Branch Admin") ? "Branch Admin" : (User.IsInRole("Token Generator") ? "Token Generator" : (User.IsInRole("Service Holder") ? "Service Holder" : ""))))
+                        </div>
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </section>
+        }
+    }
+
+    <!-- MENU SECTION -->
+    @if (User.Identity.IsAuthenticated)
+    {
+        <section class="menu-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="navbar-collapse collapse ">
+                            <ul id="menu-top" class="nav navbar-nav navbar-right" style="width: 104%">
+                                @Html.Partial("_Menu")
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
+    <!-- MAIN CONTENT -->
+    @RenderBody()
+    @RenderSection("SPAViews", required: false)
+
+    <!-- DIALOG MESSAGE -->
+    <div id="dialog-message" title="Information">
+        <div id="body"></div>
+    </div>
+
+
+    <!-- SCRIPTS -->
+    @* <script src="~/Scripts/jquery-1.10.2.intellisense.js"></script> *@
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    @* <script src="~/Scripts/jquery-1.12.4.intellisense.js"></script> *@
+    <script src="~/Scripts/jquery-1.12.4.js"></script>
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script> 
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/respond.js"></script>
+    <script src="~/Scripts/respond.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/sqms/global.js"></script>
+    <script src="~/Scripts/modal/modal-V8.0.js"></script>
+    <script src="~/Scripts/modal/jquery-ui.js"></script>
+    @RenderSection("Scripts", required: false)
+
+    <!-- CUSTOM SCRIPT -->
+    
+</body>
+</html>

@@ -1,0 +1,76 @@
+﻿@model SQMS.Models.tblCounter
+
+@{
+    ViewBag.Title = "Create New Counter";
+}
+
+<div class="container">
+    <div class="row">
+
+        <h4 class="page-head-line">Counter > Create</h4>
+
+        <div class="col-md-5">
+            <form asp-controller="Counters" asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Branch Name</label>
+                        <div class="col-md-8">
+                            <select class="form-control" name="branch_id" id="branch_id" required>
+                                <option value="">Select Branch Name</option>
+                                @foreach (var item in ViewBag.branch_id)
+                                {
+                                    <option value="@item.branch_id">@item.branch_name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="branch_id" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Counter No</label>
+                        <div class="col-md-8">
+                            <input asp-for="counter_no" class="form-control" placeholder="Counter No" />
+                            <span asp-validation-for="counter_no" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Location</label>
+                        <div class="col-md-8">
+                            <input asp-for="location" class="form-control" placeholder="Location" />
+                            <span asp-validation-for="location" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input type="submit" value="Create" class="btn btn-color" />
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Back to List", "Index")
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/knockout.validation.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            inp = $("#branch_id option:selected").text();
+            if (inp == "Select Branch Name") {
+                $("#branch_id").attr('disabled', false);
+            }
+            else $("#branch_id").attr('disabled', true);
+        });
+    </script>
+}

@@ -1,0 +1,107 @@
+﻿@model SQMS.Models.tblLogoutType
+@{
+    ViewBag.Title = "Logout Type Create";
+}
+
+<div class="container">
+    <div class="row">
+
+        <h4 class="page-head-line">Logout Type > Create </h4>
+
+        <div class="col-md-5">
+            <form asp-controller="LogoutTypes" asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.logout_type_name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Logout Type Name" } })
+                            @Html.ValidationMessageFor(model => model.logout_type_name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.bool_has_free_text, new { htmlAttributes = new { @class = "form-control" } }) Free Text?
+                            @Html.ValidationMessageFor(model => model.bool_has_free_text, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            @Html.CheckBoxFor(model => model.bool_is_active, new { htmlAttributes = new { @class = "form-control" } }) Is  Active?
+                            @Html.ValidationMessageFor(model => model.bool_is_active, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input type="submit" value="Create" class="btn btn-color" />
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Back to List", "Index")
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>   
+        </div>
+    </div>
+
+</div>
+
+
+
+@* @model SQMS.Models.tblLogoutType
+@{
+    ViewBag.Title = "Logout Type Create";
+}
+
+<div class="container">
+    <div class="row">
+
+        <h4 class="page-head-line">Logout Type > Create </h4>
+
+        <div class="col-md-5">
+
+            <form>
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input asp-for="logout_type_name" class="form-control" placeholder="Logout Type Name" />
+                            <span asp-validation-for="logout_type_name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <input asp-for="bool_has_free_text" class="form-control" /> Free Text?
+                            <span asp-validation-for="bool_has_free_text" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input asp-for="bool_is_active" class="form-control" /> Is Active?
+                            <span asp-validation-for="bool_is_active" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input type="submit" value="Create" class="btn btn-color" />
+                            <a asp-action="Index" class="btn btn-color">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div> *@

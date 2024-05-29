@@ -1,0 +1,65 @@
+﻿@model SQMS.Models.tblServiceSubType
+
+@{
+    ViewData["Title"] = "Service Sub Type Edit";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Service Sub Type > Edit</h4>
+        <form asp-action="Edit" asp-controller="ServiceSubTypes" method="post">
+            <input type="hidden" asp-for="service_sub_type_id" />
+
+            <div class="form-horizontal">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Service Type</label>
+                    <div class="col-md-4">
+                        <select name="service_type_id" class="form-control" id="service_type_id" required>
+                            @foreach (var item in ViewBag.service_type_id)
+                            {
+                                <option value="@item.service_type_id">@item.service_type_name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="service_type_id" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Service Sub Type Name</label>
+                    <div class="col-md-4">
+                        <input asp-for="service_sub_type_name" class="form-control" />
+                        <span asp-validation-for="service_sub_type_name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Max Duration</label>
+                    <div class="col-md-4">
+                        <input asp-for="max_duration" class="form-control" />
+                        <span asp-validation-for="max_duration" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">TAT Warning Time</label>
+                    <div class="col-md-4">
+                        <input asp-for="tat_warning_time" class="form-control" />
+                        <span asp-validation-for="tat_warning_time" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <input type="submit" value="Save" onclick="return warningTimeValidation()" class="btn btn-color" />
+                        <a asp-action="Index" asp-controller="ServiceSubTypes" class="btn btn-color">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/sqms/service-sub-type-V8.0.js"></script>
+}

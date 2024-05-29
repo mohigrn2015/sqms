@@ -1,0 +1,763 @@
+﻿
+
+/* =============================================================
+   GENERAL STYLES
+ ============================================================ */
+
+@media screen and (max-width:1024px){
+    .banner {
+        display: none;        
+    }
+    #logo{
+        height:100%;
+    }
+
+    #bannardiv{
+        display:none;
+
+    }
+
+    header{
+        display:none;
+    }
+}
+
+.banner {
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    padding-top: 30px;
+    font-family: Arial
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 30px;
+    
+}
+
+hr {
+    border: none;
+    height: 2px;
+    /* Set the hr color */
+    color: #FFCB24; /* old IE */
+    background-color: #FFCB24; /* Modern Browsers */
+}
+
+.table-scroll {
+    overflow-x: hidden;
+    /*overflow-y: scroll;*/
+    max-height: 400px;
+    height: auto;
+}
+
+.dropdown-menu {
+    background-color: black;
+    color: #FFCB24;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: #FFCB24;
+}
+
+.checkbox {
+    margin-left: 23px;
+}
+
+.btn-squere-xl a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.btn-squere-xl i.fa {
+    font-size: 30px;
+    margin-bottom: 12px;
+    padding: 0 20px;
+}
+
+.btn-squere-xl a:hover, .btn-squere-xl a:focus {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-top: none;
+}
+#Hedding_1 {
+    background-color: #555555;
+    color: white;
+    font-weight: bold;
+}
+
+
+#Hedding {
+    background-color: #555555;
+    color: white;
+    font-weight:bold;
+}
+
+.tr-odd {
+    background-color: #FFCB2426;
+}
+
+.marzin-bottom {
+    margin-bottom: 5px;
+}
+
+.btn-circle-xl {
+    width: 150px;
+    height: 150px;
+    padding: 10px 16px;
+    font-size: 14px;
+    line-height: 1.33;
+    border-radius: 100px;
+    font-weight: bold;
+}
+
+.btn-squere-xl {
+    width: 100px;
+    height: 100px;
+    padding: 10px 16px;
+    font-size: 14px;
+    line-height: 1.33;
+    /*border-radius: 100px;*/
+    font-weight: bold;
+    color: #fff;
+    cursor:pointer;
+}
+
+.btn-color {
+    background-color: #000000;
+    color: #FFCB24;
+    border: none;
+    cursor: pointer;
+}
+
+.btn.btn-color a {
+    background-color: #000;
+    color: #FFCB24;
+    text-decoration: none;
+}
+
+.btn-color:hover, .btn-color:focus, .btn-color.focus, .btn-color:active, .btn-color.active, .open > .dropdown-toggle.btn-color {
+    background-color: #FFCB24;
+    color: #000;
+}
+
+
+
+.dropdown-settings {
+    background-color: #fff;
+}
+
+@media screen and (max-width: 640px) {
+
+    .banner {
+        margin-top: 68px;
+    }
+}
+
+.banner img {
+    width: 100%;
+    height:80px;
+}
+
+
+
+.set-radius-zero {
+    border-radius: 0px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+}
+
+.content-wrapper {
+    margin-top: 40px;
+    min-height: 600px;
+    padding-bottom: 60px;
+}
+
+.page-head-line {
+    font-weight: 900;
+    padding-bottom: 10px;
+    /*border-bottom: 2px solid #e56200;*/
+    border-bottom: 2px solid #555555;
+    text-transform: uppercase;
+    color: #555555;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+}
+
+.progress {
+    height: 8px;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+}
+
+.login-icon {
+    height: 60px;
+    width: 60px;
+    padding: 13px;
+    border-radius: 50%;
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    RefCursor: pointer;
+    background-color: #e56200;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+}
+/* =============================================================
+   HEADER SECTION STYLES
+ ============================================================ */
+header {
+    background-color: #e56200;
+    color: #fff;
+    padding: 5px;
+    text-align: right;
+}
+
+
+/* =============================================================
+   LOGO SECTION STYLES
+ ============================================================ */
+.left-div {
+    padding-right: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    float: right;
+}
+
+.navbar-brand {
+    width: 250px;
+    padding-top: 8px;
+}
+
+/* USER SETTINGS DIV */
+.user-settings-wrapper .nav > li > a {
+    position: relative;
+    display: block;
+    padding: 7px 8px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background-color: #e56200;
+    color: #000;
+}
+
+.user-settings-wrapper {
+    margin-top: 10px;
+}
+
+    .user-settings-wrapper li {
+        display: inline-block;
+    }
+
+    .user-settings-wrapper .dropdown-settings {
+        width: 200px;
+        padding: 10px;
+    }
+
+    .user-settings-wrapper .nav > li > a:hover, .user-settings-wrapper .nav > li > a:focus {
+        text-decoration: none;
+        background-color: #FFCB24 !important;
+    }
+
+    .user-settings-wrapper img {
+        height: 64px;
+        width: 64px;
+        border: 1px solid #000000;
+    }
+
+    .user-settings-wrapper .dropdown-menu {
+        margin: 0px;
+        border-radius: 0px !important;
+        -moz-border-radius: 0px !important;
+        -webkit-border-radius: 0px !important;
+    }
+
+    .user-settings-wrapper .btn {
+        border-radius: 0px !important;
+        -moz-border-radius: 0px !important;
+        -webkit-border-radius: 0px !important;
+    }
+
+    .user-settings-wrapper .media-heading {
+        padding-top: 10px;
+    }
+
+.user-profile-section {
+    background-color: #000;
+    color: #FFCB24;
+    text-transform: uppercase;
+}
+
+.user-info{
+    padding-top:10px;
+}
+
+.user-profile-section a {
+    color: #000;
+    text-transform: uppercase;
+}
+
+/* MENU LINKS SECTION*/
+.menu-section {
+    background-color: #FFCB24;
+}
+
+#menu-top a {
+    color: #FFF;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 10px 10px 10px;
+    text-transform: uppercase;
+}
+
+.menu-top-active {
+    background-color: #FFCB24;
+}
+
+.menu-section .nav > li > a:hover, .menu-section .nav > li > a:focus {
+    background-color: #555555 !important;
+}
+
+.menu-section .dropdown-menu > li > a:hover, .menu-section .dropdown-menu > li > a:focus {
+    background-color: #555555 !important;
+}
+
+.navbar-inverse {
+    background-color: #fdeee6;
+    border-color: transparent;
+}
+
+.navbar-toggle {
+    background-color: #e56200;
+    border: 1px solid #fff;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: #fdeee6 !important;
+}
+/* =============================================================
+   FOOTER SECTION STYLES
+ ============================================================ */
+footer {
+    padding: 10px;
+    color: #fff;
+    font-size: 12px;
+    background-color: #FFCB24;
+}
+
+
+
+    footer a, footer a:hover {
+        color: #fff;
+        text-decoration: none;
+    }
+
+/*==============================================
+    DASHBOARD  STYLES    
+ =============================================*/
+
+/* DASHBOARD ICONS */
+
+.bk-clr-one {
+    background-color: #B9B739;
+}
+
+.bk-clr-two {
+    background-color: #F94C4C;
+}
+
+.bk-clr-three {
+    background-color: #119c7e;
+}
+
+.bk-clr-four {
+    background-color: #b739b9;
+}
+
+.dashboard-div-icon {
+    height: 75px;
+    width: 75px;
+    border: 2px solid #fff;
+    padding: 20px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.dashboard-div-wrapper {
+    border-radius: 5px;
+    text-align: center;
+    padding: 15px;
+    color: #fff;
+    margin-bottom: 50px;
+}
+
+    .dashboard-div-wrapper .progress {
+        height: 2px;
+    }
+
+/* NOTICE BOARD */
+
+
+.notice-board .panel {
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+}
+
+.notice-board ul {
+    padding-left: 0px;
+    list-style: none;
+}
+
+.notice-board li {
+    padding: 10px;
+    border-bottom: 1px solid #FFCB24;
+}
+
+    .notice-board li span {
+        margin-right: 10px;
+        border: 1px solid #DBDBDB;
+        padding: 5px;
+    }
+
+    .notice-board li a, li a:hover {
+        text-decoration: none;
+        color: #000;
+    }
+
+/* SOCIAL BUTTONS */
+.btn-social {
+    color: white;
+    opacity: 0.8;
+}
+
+    .btn-social:hover {
+        color: white;
+        opacity: 1;
+        text-decoration: none;
+    }
+
+.btn-facebook {
+    background-color: #3b5998;
+}
+
+.btn-twitter {
+    background-color: #00aced;
+}
+
+.btn-linkedin {
+    background-color: #0e76a8;
+}
+
+.btn-google {
+    background-color: #c32f10;
+}
+
+
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+    background-color: #e56200;
+}
+
+.badge {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+}
+
+/*
+    New CR
+*/
+.toastify {
+    color: #fff !important;
+}
+
+.dataTables_paginate, .dataTables_filter {
+    float: right;
+}
+
+    .dataTables_paginate .pagination{
+        margin: 0 !important;
+    }
+
+.notify-content {
+    background: #FFCB24;
+    color: #fff;
+    padding: 20px;
+}
+img.notify-warning {
+    display: block;
+    overflow: hidden;
+    margin: 0px auto;
+    width: 100px;
+}
+.notify-content .notify-header {
+    text-align: center;
+    font-size: 38px;
+}
+.notify-content .notify-message {
+    line-height: 26px;
+    font-size: 20px;
+}
+.notify-btn-area {
+    margin-top: 26px;
+    display: block;
+    overflow: hidden;
+}
+
+    .notify-btn-area .btn-close{
+        float: left;
+    }
+
+    .notify-btn-area .btn-attachment {
+        float: right;
+    }
+
+#mdlNotificationModal .modal.fade {
+    background: red;
+}
+
+.dropbtn {
+    color: #FFCB24 !important;
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+    .dropbtn .fa {
+        font-size: 25px;
+    }
+.dropdown-bell {
+    position: relative;
+    display: inline-block;
+    top: 10px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    .dropdown-content a {
+        color: black;
+        padding: 6px 10px;
+        text-decoration: none;
+        display: block;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+        .dropdown-content a:hover, .show-all-link {
+            background-color: #f1f1f1
+        }
+
+.dropdown-bell:hover .dropdown-content {
+    display: block;
+}
+
+
+.notification .badge {
+    right: -10px;
+    left: auto;
+    background-color: #555;
+}
+.hide-on-click.not-seen {
+    background: #e5e5e5;
+}
+.notification-divider {
+    border-top: 1px solid #ddd;
+}
+
+table.user-notification-table {
+    width: 100% !important;
+    text-align: left;
+}
+
+#tblUserNotification_wrapper .dataTables_info {
+    float: left;
+}
+
+.dataTables_paginate .pagination .active a {
+    background: #000000;
+    color: #FFCB24;
+}
+.tooltipclass {
+    font-size: 12px;
+    border: 1px solid #e74c3c;
+}
+
+
+#mdlNotificationModal.modal.in {
+    background: #55555585;
+}
+
+.single-user {
+    float: left;
+    padding: 3px 5px;
+    background: #555555;
+    margin: 2px;
+    color: #fff;
+    font-weight: bold;
+    display: block;
+}
+
+span.u-remove {
+    float: right;
+    position: relative;
+    padding: 2px 10px;
+    cursor: pointer;
+    background: #ab4242;
+    margin-left: 10px;
+}
+
+.selected-box {
+    border: 3px solid #ddd;
+    padding: 20px 5px;
+    margin-bottom: 20px;
+    max-height: 150px;
+    overflow: auto;
+    margin-top: 20px;
+}
+.notify-error ul {
+    list-style: none;
+    padding-left: 17px;
+    background: #ff0000;
+    color: #fff;
+    font-weight: bold;
+}
+.ui-widget-content .user-notification-table a {
+    color: #FFCB24;
+}
+.ui-widget-content .user-notification-table a:hover {
+    color: #000;
+}
+
+
+/*Custom tooltip*/
+
+.ctooltip {
+    position: relative;
+    display: inline-block;
+}
+
+    .ctooltip .tooltiptext {
+        visibility: hidden;
+        width: max-content;
+        max-width: 300px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .ctooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+    .ctooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+select[readonly] {
+    pointer-events: none;
+}
+
+.ui-dialog.ui-corner-all {
+    z-index: 99999;
+}
+
+.tat-modal .modal-header {
+    background: #000;
+    color: #FFCB24;
+    text-transform: uppercase;
+    overflow: hidden;
+}
+
+
+.tat-modal .modal-header .modal-title {
+    width: 90%;
+    float: left;
+}
+.tat-modal .modal-header button, .tat-modal .modal-header button span {
+    color: #FFCB24;
+    cursor: pointer;
+    opacity: .9;
+}
+
+.tat-modal .modal-header .modal-title {
+    width: 90%;
+    float: left;
+}
+.tat-modal .modal-header button, .tat-modal .modal-header button span {
+    color: #FFCB24;
+    cursor: pointer;
+    opacity: .9;
+}
+
+.btn-color:hover a {
+    color: #000;
+    text-decoration: none;
+    background-color: transparent;
+}
+.table-scrollbar {
+    overflow: auto;
+    max-height: 400px;
+    height: auto;
+}
+.notify-btn-area .btn:hover, .notify-btn-area .btn:active, .notify-btn-area .btn:focus {
+    background: #fff;
+    transition: .3s;
+}
+.float-left {
+    float: left;
+}
+@media (max-width: 767px) {
+    #menu-top .navbar-nav {
+        margin: 0;
+    }
+}

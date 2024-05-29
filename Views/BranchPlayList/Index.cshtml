@@ -1,0 +1,72 @@
+﻿
+@model IEnumerable<SQMS.Models.ViewModels.VMBranchPlayList>
+@{
+    ViewBag.Title = "Playlist Information";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Branch > Playlist </h4>
+        <div class="row">
+            <div class="col-md-3" style="margin-bottom : 10px;">
+                <a href='@Url.Action("Create", "BranchPlayList")'>
+                    <button class="btn btn-color" style="margin-bottom : 10px;">Map Branch Playlist</button>
+                </a>
+
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+                <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
+            </div>
+        </div>
+
+
+
+        <div class="col-md-12 scrollbar table-scroll">
+
+            <table class="table table-hover table-bordered" id="data">
+                <tr id="Hedding">
+
+                    <th>
+                        @Html.DisplayName("Branch Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Playlist")
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td style="text-align:center">
+                            @Html.DisplayFor(modelItem => item.branch_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.playlist_name)
+                        </td>
+                        <td>
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.branch_playlist_id })
+                            </button>
+
+                        </td>
+                        <td>
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Delete", "Delete", new { id = item.branch_playlist_id })
+                            </button>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/sqms/branch.js"></script>
+
+}
+

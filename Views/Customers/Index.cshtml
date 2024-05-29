@@ -1,0 +1,64 @@
+﻿
+@model IEnumerable<SQMS.Models.ViewModels.VM_Customer>
+
+@{
+    ViewBag.Title = "Customer List";
+}
+<div class="container">
+
+    <div class="row">
+
+        <h4 class="page-head-line">Customer > List </h4>
+        <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-md-3">
+                <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
+            </div>
+        </div>
+
+
+        <div class="col-md-12 scrollbar table-scroll">
+
+            <table class="table table-hover table-bordered" id="data">
+                <tr id="Hedding">
+                    <th>
+                        @Html.DisplayName("Cusomer Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Contact No")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Address")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Type")
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.customer_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.contact_no)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.address)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.customer_type_name)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    <script src="~/Scripts/sqms/customer.js"></script>
+}

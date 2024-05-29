@@ -1,0 +1,56 @@
+﻿@model SQMS.Models.tblCustomerType
+@{
+    ViewBag.Title = "Customer Type Create";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Customer Type > Create</h4>
+        @*<div class="col-md-2"></div>*@
+        <div class="col-md-5">
+
+            <form method="post">
+                <div class="form-horizontal">
+                    <input asp-for="customer_type_id" type="hidden" />
+                    <input asp-for="is_default" type="hidden" />
+
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="customer_type_name" class="control-label col-md-4">Customer Type Name</label>
+                        <div class="col-md-8">
+                            <input asp-for="customer_type_name" class="form-control" />
+                            <span asp-validation-for="customer_type_name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="priority" class="control-label col-md-4">Priority</label>
+                        <div class="col-md-8">
+                            <input asp-for="priority" class="form-control" />
+                            <span asp-validation-for="priority" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="token_prefix" class="control-label col-md-4">Token Prefix</label>
+                        <div class="col-md-8">
+                            <input asp-for="token_prefix" class="form-control" size="1" />
+                            <span asp-validation-for="token_prefix" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8">
+                            <button type="submit" class="btn btn-color">Create</button>
+                            <a asp-action="Index" asp-controller="YourController" class="btn btn-color">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>

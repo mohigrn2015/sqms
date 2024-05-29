@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using SQMS.Utility
+@* @inject Microsoft.AspNetCore.Http.IHttpContextAccessor sm; *@
+@if (User.Identity.IsAuthenticated)
+{
+    <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right" style="color:white">
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Service Holder"))
+                {
+                    <li style="padding: 8px 17px;">
+                        <div class="dropdown-bell">
+                            <a href="#" class="dropbtn notification">
+                                <span><i class="fa fa-bell-o" aria-hidden="true"></i></span>
+                                <span class="badge dummy_notification_count"></span>
+                            </a>
+                            <div class="dropdown-content">
+                                <div class="dummy_recent_notification"></div>
+                                <a class="show-all-link notification-divider" href="#" onclick="OpenNotifcationPanel()">All Notification</a>
+                            </div>
+                        </div>
+                    </li>
+                }
+                if (User.IsInRole("Service Holder"))
+                {
+                    <li><a asp-controller="Account" asp-action="LogOff" asp-area="" id="logout" style="color:#FFCB24">Log Off</a></li>
+                }
+                else
+                {
+                    <li><a href="javascript:sessionStorage.removeItem('accessToken');document.getElementById('logoutForm').submit();" id="logout" style="color: #FFCB24">Log off</a></li>
+                }
+            }
+        </ul>
+    </form>
+}

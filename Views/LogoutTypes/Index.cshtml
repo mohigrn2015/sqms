@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SQMS.Models.tblLogoutType>
+@{
+    ViewBag.Title = "Logout Type List";
+}
+
+<br />
+
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Logout > List </h4>
+
+        <a asp-controller="LogoutTypes" asp-action="Create" style="margin-bottom: 10px;">
+            <button class="btn btn-color" style="margin-bottom: 10px;">Create New Logout Type</button>
+        </a>
+
+        <div class="col-md-12 scrollbar" style="overflow-x: hidden; overflow-y: scroll; max-height: 400px; height: auto">
+            <table class="table table-hover table-bordered" id="data">
+                <tr id="Heading">
+                    <th>
+                        Logout Type Name
+                    </th>
+                    <th>
+                        Has Free Text
+                    </th>
+                    <th>
+                        Is Active
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.logout_type_name
+                        </td>
+                        <td>
+                            @if (item.has_free_text == 1)
+                            {
+                                <label>Yes</label>
+                            }
+                            else
+                            {
+                                <label>No</label>
+                            }
+                        </td>
+                        <td>
+                            @if (item.is_active == 1)
+                            {
+                                <label>Activated</label>
+                            }
+                            else
+                            {
+                                <label>Deactivated</label>
+                            }
+                        </td>
+                        <td>
+                            <button class="btn btn-color">
+                                <a asp-action="Edit" asp-route-id="@item.logout_type_id">Edit</a>
+                            </button>
+                            <button class="btn btn-color">
+                                <a asp-action="Delete" asp-route-id="@item.logout_type_id">Delete</a>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+    </div>
+</div>

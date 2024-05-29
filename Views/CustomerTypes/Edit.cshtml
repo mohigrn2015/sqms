@@ -1,0 +1,46 @@
+﻿@model SQMS.Models.tblCustomerType
+@{
+    ViewBag.Title = "Service Type Edit";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">CustomerType > Edit</h4>
+
+        <form method="post">
+            <input type="hidden" asp-for="customer_type_id" />
+            <input type="hidden" asp-for="is_default" />
+            <div class="form-horizontal">
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="customer_type_name" class="control-label col-md-2">Customer Type Name</label>
+                    <div class="col-md-4">
+                        <input asp-for="customer_type_name" class="form-control" />
+                        <span asp-validation-for="customer_type_name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="priority" class="control-label col-md-2">Priority</label>
+                    <div class="col-md-4">
+                        <input asp-for="priority" class="form-control" />
+                        <span asp-validation-for="priority" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="token_prefix" class="control-label col-md-2">Token Prefix</label>
+                    <div class="col-md-4">
+                        <input asp-for="token_prefix" class="form-control" size="1" />
+                        <span asp-validation-for="token_prefix" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-color">Save</button>
+                        <a asp-action="Index" asp-controller="YourController" class="btn btn-color">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

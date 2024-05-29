@@ -1,0 +1,73 @@
+﻿@model SQMS.Models.ViewModels.VMCounterCustomerType
+@{
+    ViewBag.Title = "Create New Counter Customer Type";
+}
+
+<div class="container">
+    <div class="row">
+
+        <h4 class="page-head-line">Create New Counter Customer Type > Create</h4>
+
+        <div class="col-md-5">
+            <form asp-action="Create" asp-controller="CounterCustomerTypes" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            @Html.DropDownList("branch_id", null, "Select Branch Name", htmlAttributes: new { @class = "form-control" })
+                            @* <select class="form-control" id="branch_id" asp-for="branch_id" name="branch_id" required>
+                            <option value="">Select Branch Name</option>
+                            @foreach (var item in ViewBag.branch_id)
+                            {
+                            <option value="@item.branch_id">@item.branch_name</option>
+                            }
+                            </select> *@
+                            <span asp-validation-for="branch_id" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            @Html.DropDownList("counter_id", new SelectList(string.Empty, "counter_id", "counter_no"), "Select Counter Name", htmlAttributes: new { @class = "form-control" })
+                            @*                             <select class="form-control" id="counter_id" asp-for="counter_id" name="counter_id" required>
+
+                            </select> *@
+                            <span asp-validation-for="counter_id" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <select class="form-control" id="customer_type_id" asp-for="customer_type_id" name="customer_type_id" required>
+                                <option value="">Select Customer Type</option>
+                                @foreach (var item in ViewBag.customer_type_id)
+                                {
+                                    <option value="@item.customer_type_id">@item.customer_type_name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="customer_type_id" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input type="submit" value="Create" class="btn btn-color" />
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Back to List", "Index")
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    @* <script src="~/Scripts/knockout.validation.js"></script> *@
+    <script src="~/Scripts/sqms/counter-customer-type-V7.12.js"></script>
+}

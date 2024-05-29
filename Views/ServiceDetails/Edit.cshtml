@@ -1,0 +1,53 @@
+﻿@model SQMS.Models.tblServiceDetail
+@{
+    ViewData["Title"] = "Service Detail Edit";
+}
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Service Edit</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="service_id" />
+
+        <div class="form-group">
+            <label asp-for="tblCustomer.customer_name" class="control-label col-md-2">Customer Name</label>
+            <div class="col-md-10">
+                <input asp-for="tblCustomer.customer_name" class="form-control" readonly />
+                <span asp-validation-for="customer_id" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="issues" class="control-label col-md-2">Issue</label>
+            <div class="col-md-10">
+                <input asp-for="issues" class="form-control" />
+                <span asp-validation-for="issues" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="solutions" class="control-label col-md-2">Solution</label>
+            <div class="col-md-10">
+                <input asp-for="solutions" class="form-control" />
+                <span asp-validation-for="solutions" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="service_datetime" class="control-label col-md-2">Service Time</label>
+            <div class="col-md-10">
+                <input asp-for="service_datetime" class="form-control" />
+                <span asp-validation-for="service_datetime" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default">Save</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<a asp-action="Index">Back to List</a>

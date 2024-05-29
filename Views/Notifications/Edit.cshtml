@@ -1,0 +1,378 @@
+﻿@model SQMS.Models.tblNotification
+@{
+    ViewBag.Title = "Edit";
+    List<SQMS.Models.ViewModels.VMBranchLogin> userListModel = ViewBag.UserList;
+}
+
+@if ((!Model.sent_now && Model.notification_date_time > DateTime.Now && !Model.is_PostBack) || Model.is_PostBack)
+{
+    <div class="container">
+        <div class="row">
+            <h4 class="page-head-line">Notification > Edit</h4>
+            <form asp-action="Edit" asp-controller="Notifications" method="post" enctype="multipart/form-data">
+                <div class="col-md-4">
+                    @Html.AntiForgeryToken()
+                    <div class="notify-error">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-horizontal">
+                        @Html.HiddenFor(model => model.SelectedUserId, new { id = "hdnSelectedUserId" })
+                        @Html.HiddenFor(model => model.notification_id)
+                        @Html.CheckBoxFor(model => model.have_attachment, new { @style = "display: none" })
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.LabelFor(model => model.sent_now)
+                                @Html.CheckBoxFor(model => model.sent_now, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sent Now" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="date" name="NotificationDate" class="form-control" value="@Model.notification_date_time.ToString("yyyy-MM-dd")" min="@DateTime.Today.ToString("yyyy-MM-dd")" id="txtFromDate" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input class="timepicker form-control" name="NotificationTime" type="time" id="txtStartTime" value="@Model.notification_date_time.ToString("HH:mm:ss")" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(m => m.message, 3, 20, new { @class = "form-control Next", @id = "txtMessage", @row = "3", @placeholder = "Message", @required = "required", @maxlength = "300" })
+                            </div>
+                            <div class="col-md-12">
+                                <span class="dummy_characters">@Model.message.Length</span>&nbsp;Characters.
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>PDF Only</label>
+                                @Html.TextBox("txtInputFile", null, new { @type = "file", accept = "application/pdf" })
+                            </div>
+                        </div>
+
+                        @if (Model.have_attachment)
+                        {
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.ActionLink("View Attachment", "ViewAttachment", new { id = Model.notification_id }, new { @class = "btn btn-color", @target = "_blank" })
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label class="col-md-2 control-label">Branch:</label>
+                            <div class="col-md-6" style="margin-bottom : 10px;">
+
+                                <select name="branch_name" class="form-control" id="branch_name">
+                                    <option value="">All Branch</option>
+                                    @foreach (var item in ViewBag.branchList)
+                                    {
+                                        if (item.branch_id == ViewBag.userBranchId)
+                                        {
+                                            <option value="@item.branch_id" selected="selected">@item.branch_name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.branch_id">@item.branch_name</option>
+                                        }
+
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 scrollbar table-scrollbar">
+                            <table class="table table-hover table-bordered user_table_lsit" id="data">
+                                <thead>
+                                    <tr id="Hedding">
+                                        <th>
+                                            <button class="btn btn-primary btn-color" type="button" onclick="SelectAll();">Add All</button>
+                                        </th>
+                                        <th>
+                                            Branch
+                                        </th>
+                                        <th>
+                                            User Name
+                                        </th>
+                                        <th>
+                                            Full Name
+                                        </th>
+                                        <th>
+                                            Mobile
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in userListModel)
+                                    {
+                                        <tr id="tr_@item.user_id" data-id="@item.user_id">
+                                            <td>
+                                                <button class="btn btn-default btn-color" onclick="AddUserToNotification(this);" type="button" uid="@item.user_id">Add</button>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.branch_name)
+                                            </td>
+                                            <td class="dummy_user_name">
+                                                @Html.DisplayFor(modelItem => item.UserName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Hometown)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Email)
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 selected-box" id="divUserList">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12" style="margin-bottom: 30px;">
+                    <input type="submit" value="Save" class="btn btn-color" onclick="return NotificationValidation();" />
+                    <button class="btn btn-color">
+                        @Html.ActionLink("Back to List", "Index")
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <h4 class="page-head-line">Notification > Edit</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12 selected-box">
+                <h4 class="text-center">Notification already sent.</h4>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-color">
+                    @Html.ActionLink("Back to List", "Index")
+                </button>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section scripts {
+    <script src="~/Scripts/sqms/branch-user-V8.2.js"></script>
+
+    <script>
+
+
+        $(document).ready(function () {
+
+            $('#sent_now').change(function () {
+                if (this.checked) {
+                    $("#txtFromDate, #txtStartTime").val("");
+                    $("#txtFromDate, #txtStartTime").removeAttr('required', 'required');
+                    $("#txtFromDate, #txtStartTime").prop('readOnly', true);
+                } else {
+                    $("#txtFromDate, #txtStartTime").attr('required', 'required');
+                    $("#txtFromDate, #txtStartTime").prop('readOnly', false);
+                }
+            });
+
+            $("#txtInputFile").change(function () {
+                readURL(this);
+            });
+
+            $("#txtMessage").keyup(function () {
+                countChar(this);
+            });
+
+            setTimeout(function () {
+                LoadSelectedUser();
+            }, 700);
+
+            $("#branch_name").attr('disabled', false);
+        });
+
+        function countChar(elem) {
+            let len = elem.value.length;
+            $(".dummy_characters").text(len);
+        };
+
+        function readURL(input) {
+            var fileName = document.getElementById("txtInputFile").value;
+            var idxDot = fileName.lastIndexOf(".") + 1;
+            var extn = fileName.substr(idxDot, fileName.length).toLowerCase();
+            if (extn.toLowerCase() == "pdf") {
+                var totalBytes = input.files[0].size;
+                var _size = parseFloat(totalBytes / 1000000);
+                if (_size > 4) {
+                    $("#txtInputFile").val("");
+                    alert("Maximum file size 4MB");
+                }
+            } else {
+                $("#txtInputFile").val("");
+                alert("Please select only PDF");
+            }
+        }
+
+
+        function NotificationValidation() {
+            let oldUserList = $.trim($("#hdnSelectedUserId").val());
+            let message = $.trim($("#txtMessage").val());
+
+            if (message != "" && message.length > 300) {
+                modalAlert("Maximum message size 300 character.");
+                return false;
+            }
+
+            if (oldUserList == "") {
+                modalAlert("Please select at least one user");
+                return false;
+            }
+        }
+
+        function LoadSelectedUser() {
+
+            let allUsers = $.trim($("#hdnSelectedUserId").val());
+
+            if (allUsers != "") {
+                var array = allUsers.split(",");
+
+                // Initialize an array to store selected user IDs
+                let addedUsers = [];
+
+                $.each(array, function (i) {
+                    let uid = array[i];
+
+                    // Check if the user is already added
+                    if (addedUsers.indexOf(uid) === -1) {
+                        let uName = $.trim($("#tr_" + uid).find(".dummy_user_name").text());
+                        let thisElem = $("#tr_" + uid);
+
+                        // Construct selectedElement string for the user
+                        let selectedElement = '<div class="single-user"> <input type="hidden" value="' + uid + '">';
+                        selectedElement += '<span class="u-remove" onclick="RemoveSelectedUser(this);" uid="' + uid + '">X</span><span class="u-name">' + uName + '</span></div>';
+
+                        // Append selectedElement to the div and hide the user element
+                        $("#divUserList").append(selectedElement);
+                        $(thisElem).hide();
+
+                        // Add the user ID to the list of added users
+                        addedUsers.push(uid);
+                    }
+                });
+            }
+        }
+
+
+
+
+        function AddUserToNotification(elem) {
+
+            let uid = $.trim($(elem).attr('uid'));
+            let uName = $.trim($("#tr_" + uid).find(".dummy_user_name").text());
+            let thisElem = $("#tr_" + uid);
+            let oldUserList = $.trim($("#hdnSelectedUserId").val());
+            var oldUserArray = oldUserList.split(',');
+
+            if ($(thisElem).is(':visible') && oldUserArray.indexOf(uid) < 0) {
+
+                let selectedElement = '<div class="single-user"> <input type="hidden" value="' + uid + '">';
+                selectedElement = selectedElement + '<span class="u-remove" onclick="RemoveSelectedUser(this);" uid="' + uid + '">X</span><span class="u-name">' + uName + '</span></div > ';
+
+                $("#divUserList").append(selectedElement);
+                SetUserMap();
+                $("#tr_" + uid).hide();
+
+            } else {
+                alert("User already added.")
+            }
+        }
+
+        function RemoveSelectedUser(elem) {
+            let uid = $.trim($(elem).attr('uid'));
+            $("#tr_" + uid).show();
+            $(elem).parent('.single-user').remove();
+            SetUserMap();
+        }
+
+
+        function SetUserMap() {
+            let userMap = "";
+            $(".single-user").each(function () {
+                let uItem = $.trim($(this).find('input').val());
+
+                if (userMap == "") {
+                    userMap = uItem;
+                } else {
+                    userMap = userMap + "," + uItem;
+                }
+            });
+
+            $("#hdnSelectedUserId").val(userMap);
+        }
+
+        function SelectAll() {
+
+
+            $(".user_table_lsit tbody tr").each(function () {
+
+                var self = $(this);
+                let uid = $.trim($(self).attr('data-id'));
+                let uName = $.trim($("#tr_" + uid).find(".dummy_user_name").text());
+                let thisElem = $("#tr_" + uid);
+                let oldUserList = $.trim($("#hdnSelectedUserId").val());
+                var oldUserArray = oldUserList.split(',');
+
+                let u = oldUserArray.indexOf(uid);
+
+                if ($(thisElem).is(':visible') && oldUserArray.indexOf(uid) < 0) {
+
+                    let selectedElement = '<div class="single-user"> <input type="hidden" value="' + uid + '">';
+                    selectedElement = selectedElement + '<span class="u-remove" onclick="RemoveSelectedUser(this);" uid="' + uid + '">X</span><span class="u-name">' + uName + '</span></div > ';
+
+                    $("#divUserList").append(selectedElement);
+                    SetUserMap();
+                    $(thisElem).hide();
+                }
+
+            });
+        }
+
+    </script>
+}

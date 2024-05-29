@@ -1,0 +1,46 @@
+﻿@model SQMS.Models.tblPlayList
+@{
+    ViewBag.Title = "Play List Detail";
+}
+
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Play List > Detail</h4>
+
+        <div>
+
+            <dl class="dl-horizontal">
+                <dt>
+                    National?
+                </dt>
+
+                <dd>
+                    @if (Model.is_global > 0)
+                    {
+                        <text>Yes</text>
+                    }
+                    else
+                    {
+                        <text>No</text>
+                    }
+                </dd>
+
+                <dt>
+                    Playlist Name
+                </dt>
+
+                <dd>
+                    Model.playlist_name
+                </dd>
+            </dl>
+
+            <div class="form-actions no-color">
+                <a asp-action="Index" class="btn btn-color">Back to List</a>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/knockout.validation.js"></script>

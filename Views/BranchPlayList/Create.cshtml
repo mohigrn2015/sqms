@@ -1,0 +1,61 @@
+﻿@model SQMS.Models.ViewModels.VMBranchPlayList
+@{
+    ViewBag.Title = "Branch Playlist Mapping";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Branch Playlist > Mapping</h4>
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <form asp-controller="BranchPlayList" asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <select name="branch_id" class="form-control" id="branch_id">
+                                <option value="">Select One Content</option>
+                                @foreach (var item in ViewBag.branch_id)
+                                {
+                                    <option value="@item.branch_id">@item.branch_name</option>
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(model => model.branch_id, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <select name="playlist_id" class="form-control" id="playlist_id">
+                                <option value="">Select One Content</option>
+                                @foreach (var item in ViewBag.playlist_id)
+                                {
+                                    <option value="@item.playlist_id">@item.playlist_name</option>
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(model => model.playlist_id, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            @if (((List<SQMS.Models.tblBranch>)ViewBag.branch_id).Count > 0
+                            && ((List<SQMS.Models.tblPlayList>)ViewBag.playlist_id).Count > 0)
+                            {
+                                <input type="submit" value="Create" class="btn btn-color" />
+                            }
+                            <button class="btn btn-color">
+                                <a asp-action="Index">Back to List</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/knockout-2.3.0.js"></script>
+<script src="~/Scripts/knockout.validation.js"></script>

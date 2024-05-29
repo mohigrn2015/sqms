@@ -1,0 +1,54 @@
+﻿<ul class="nav navbar-nav">
+    <li style="text-align:center;">@Html.ActionLink("Home", "AdminDashboard", "Home", new { area = "" }, null)</li>
+    <li class="dropdown">
+        <a class="btn dropdown-toggle" data-toggle="dropdown">
+            Setting
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("Security", "Index", "BranchUsers", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Logout Types", "Index", "LogoutTypes", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Branches", "Index", "Branches", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Counters", "Index", "Counters", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Service Types", "Index", "ServiceTypes", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Service Sub Types", "Index", "ServiceSubTypes", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Break Types", "Index", "BreakTypes", new { area = "" }, null)</li>
+            @*<li>@Html.ActionLink("Customer Types", "Index", "CustomerTypes", new { area = "" }, null)</li>*@
+            <li>@Html.ActionLink("Counter Customer Types", "Index", "CounterCustomerTypes", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Display Footer", "Index", "DisplayFooters", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Branch Display Footer", "Index", "BranchDisplayFooters", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Gallery", "Index", "Gallery", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Play List", "Index", "PlayLists", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Branch Play List", "Index", "BranchPlayList", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Notifications", "Index", "Notifications", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Global Settings", "Index", "GlobalSettings", new { area = "" }, null)</li>
+        </ul>
+    </li>
+    <li style="text-align:center;">@Html.ActionLink("Daily Services", "Index", "ServiceDetails", new { area = "" }, null)</li>
+    <li style="text-align:center;">@Html.ActionLink("Daily Breaks", "Index", "DailyBreaks", new { area = "" }, null)</li>
+    @*<li>@Html.ActionLink("Reports", "LocalCustomersReport", "Report", new { area = "" }, null)</li>*@
+    <li class="dropdown">
+        <a class="btn dropdown-toggle" data-toggle="dropdown">
+            Reports
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("Local Icon Customer", "LocalCustomersReport", "Report", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Single VS Multiple Visit Summary", "SingleVSMultipleVisitSummaryReport", "Report", new { area = "" }, null)</li>
+
+            <li>@Html.ActionLink("Agent Wise Summary", "AgentWiseReport", "Report", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Service Summary Report", "ServiceSummaryReport", "Report", new { area = "" }, null)</li>
+
+            <li>@Html.ActionLink("General Search", "GeneralSearchReport", "Report", new { area = "" }, null)</li>
+            @*<li>@Html.ActionLink("Agent Log Summary Report", "AgentLogSummaryReport", "Report", new { area = "" }, null)</li>*@
+
+            <li>@Html.ActionLink("Break Report", "BreakReport", "Report", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Top N Services", "TopNServicesReport", "Report", new { area = "" }, null)</li>
+
+            <li>@Html.ActionLink("Token Exceeding Minutes", "TokenExceedingReport", "Report", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("LogOut Detail Report", "LogOutDetailReport", "Report", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Login Attempt Details Report", "LoginAttemptDetailsReport", "Report", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Centre Wise Summary Report", "CentreWiseSummaryReport", "Report", new { area = "" }, null)</li>
+        </ul>
+    </li>
+</ul>

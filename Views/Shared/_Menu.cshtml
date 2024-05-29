@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using SQMS.Utility;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _session;
+
+@{
+    var sessionManager = new SessionManager(_session);
+}
+
+@if (User.Identity.IsAuthenticated && sessionManager.user_id != null && sessionManager.user_id.Length > 0)
+{
+    if (User.IsInRole("Admin"))
+    {
+        @Html.Partial("_MenuAdmin")
+    }
+    else if (User.IsInRole("Branch Admin") && sessionManager.branch_id > 0)
+    {
+        @Html.Partial("_MenuBranchAdmin")
+    }
+    else if (User.IsInRole("Token Generator"))
+    {
+        @Html.Partial("_MenuTokenGenerator")
+    }
+    else if (User.IsInRole("Service Holder"))
+    {
+        @Html.Partial("_MenuServiceHolder")
+    }
+    else if (User.IsInRole("Display User"))
+    {
+        @Html.Partial("_MenuDisplayUser")
+    }
+}

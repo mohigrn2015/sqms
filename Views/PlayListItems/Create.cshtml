@@ -1,0 +1,105 @@
+﻿@model SQMS.Models.tblPlayListItem
+
+@{
+    ViewBag.Title = "Play List Create";
+}
+
+<link href="~/Content/themes/base/jquery-ui-V8.0.min.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Play List > @Model.playlist_name> Item > Create</h4>
+
+        <div class="col-md-7">
+            <form asp-action="Create" asp-controller="PlayListItems" method="post" enctype="multipart/form-data">
+                <div class="form-horizontal">
+                    <input asp-for="item_url" type="hidden" />
+                    <input asp-for="playlist_id" type="hidden" />
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="playlistName">Playlist Name</label>
+                        <div class="col-md-9">
+                            <input asp-for="playlist_name" name="playlist_name" id="playlist_name" class="form-control" disabled ="disabled" placeholder="Playlist Name" />
+                            <span asp-validation-for="playlist_id" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="fileName">File Name</label>
+                        <div class="col-md-7">
+                            <input asp-for="file_name" class="form-control Next" readonly placeholder="File Name" name="file_name" id="file_name" />
+                            <span asp-validation-for="file_name" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-2">
+                            <!-- Hidden file input element -->
+                            @* <input type="file" id="fileInput" name="fileInput" style="display: none;" onchange="handleFileUpload(this.files)"> *@
+                            @* <button type="button" class="btn btn-color" onclick="loadGalleryDialog(@Model.item_url);">Browse</button> *@
+                        
+                                <button class="btn btn-color" onclick="return loadGalleryDialog();">
+                                    Browse
+                                </button>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="durationInSecond">Duration In Second</label>
+                        <div class="col-md-9">
+                            <input asp-for="duration_in_second" class="form-control Next" placeholder="Duration In Second" name="duration_in_second" id="duration_in_second" />
+                            <span asp-validation-for="duration_in_second" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="sortOrder">Sort Order</label>
+                        <div class="col-md-9">
+                            <input asp-for="sort_order" class="form-control Next" placeholder="Sort Order" name="sort_order" id="sort_order" />
+                            <span asp-validation-for="sort_order" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <button type="submit" class="btn btn-color">Create</button>
+                            <a asp-action="Index" asp-route-playlist_id="@Model.playlist_id" class="btn btn-color">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+                @Html.AntiForgeryToken()
+            </form>
+        </div>
+
+        <div id="dialog-url-gallery" title="Gallery">
+            <!-- Dialog content goes here -->
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/modal/modal-V8.0.js"></script>
+    <script src="~/Scripts/sqms/play-list.js"></script>
+    <script src="~/Scripts/knockout-2.3.0.js"></script>
+    <script src="~/Scripts/knockout.validation.js"></script>
+    
+    <script>
+        // Function to open file upload dialog
+        function openFileUploadDialog() {
+            // Trigger click event on the hidden file input element
+            document.getElementById('fileInput').click();
+        }
+
+        // Function to handle file upload
+        function handleFileUpload(files) {
+            // Handle the uploaded files here
+            // For demonstration purposes, let's log the selected file names
+            if (files.length > 0) {
+                console.log("Selected file(s):");
+                for (var i = 0; i < files.length; i++) {
+                    console.log(files[i].name);
+                }
+                // Set the value of the file name input field to the name of the selected file
+                document.getElementById('fileNameInput').value = files[0].name;
+            } else {
+                console.log("No file selected.");
+            }
+        }
+    </script>
+}

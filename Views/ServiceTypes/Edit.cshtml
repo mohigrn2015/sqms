@@ -1,0 +1,31 @@
+﻿@model SQMS.Models.tblServiceType
+@{
+    ViewData["Title"] = "Service Type Edit";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Service Type > Edit</h4>
+        <form asp-action="Edit" asp-controller="ServiceTypes" method="post">
+            <input type="hidden" asp-for="service_type_id" />
+
+            <div class="form-horizontal">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="service_type_name" class="control-label col-md-2"></label>
+                    <div class="col-md-4">
+                        <input asp-for="service_type_name" class="form-control" />
+                        <span asp-validation-for="service_type_name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <input type="submit" value="Save" class="btn btn-color" />
+                        <a asp-action="Index" asp-controller="ServiceTypes" class="btn btn-color">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿@model SQMS.Models.tblServiceSubType
+@{
+    ViewData["Title"] = "Service Detail";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>tblServiceSubType</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>Service Sub Type Name</dt>
+            <dd>@Model.service_sub_type_name</dd>
+
+            <dt>Max Duration</dt>
+            <dd>@Model.max_duration</dd>
+
+            <dt>Service Type Name</dt>
+            <dd>@Model.tblServiceType.service_type_name</dd>
+        </dl>
+    </div>
+    <p>
+        <a asp-action="Edit" asp-controller="ServiceSubTypes" asp-route-id="@Model.service_sub_type_id">Edit</a> |
+        <a asp-action="Index" asp-controller="ServiceSubTypes">Back to List</a>
+    </p>
+</body>
+</html>

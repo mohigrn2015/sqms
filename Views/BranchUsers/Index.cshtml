@@ -1,0 +1,162 @@
+﻿@using SQMS.Utility;
+@model IEnumerable<SQMS.Models.ViewModels.VMBranchLogin>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _session;
+@{
+    ViewBag.Title = "Security User";
+    SessionManager sm = new SessionManager(_session);
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Branch User > List </h4>
+        <a href='@Url.Action("Register", "Account", new { type = "Token"})' class="btn btn-color" style="margin-bottom : 10px;">
+            Create Token User
+        </a>
+        <a href='@Url.Action("Register", "Account", new { type = "Display"})' class="btn btn-color" style="margin-bottom : 10px;">
+            Create Display User
+        </a>
+        <div class="form-group">
+            <label class="col-md-1 control-label">Branch:</label>
+            <div class="col-md-3" style="margin-bottom : 10px;">
+                <select name="branch_name" class="form-control" id="branch_name">
+                    <option value="">All Branch</option>
+                    @foreach (var item in ViewBag.branchList)
+                    {
+                        if (item.branch_id == ViewBag.userBranchId)
+                        {
+                            <option value="@item.branch_id" selected="selected">@item.branch_name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.branch_id">@item.branch_name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-5"></div>
+            <div class="col-md-3">
+                <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
+            </div>
+        </div>
+        <div class="col-md-12 scrollbar table-scroll" style="overflow-x:scroll">
+            <table class="table table-hover table-bordered" id="data">
+                <tr id="Hedding">
+                    <th>User Info Update</th>
+                    <th>
+                        Branch
+                    </th>
+                    <th>
+                        User Name
+                    </th>
+                    <th>
+                        Full Name
+                    </th>
+                    <th>
+                        Mobile
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                    <th>Action</th>
+                    <th hidden>
+                        Status
+                    </th>
+                    <th hidden>
+
+                    </th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th>
+                            Un-Tag
+                        </th>
+                    }
+
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink("Edit", "EditUser", "Account", new { userId = Cryptography.Encrypt(item.user_id, true) }, new { @class = "btn btn-color" })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.branch_name)
+                            @if ((item.Name == "Branch Admin" && User.IsInRole("Admin")))
+                            {
+                                <div>
+                                    @Html.ActionLink("Add Branch", "Create", "BranchUsers", new { userId = Cryptography.Encrypt(item.user_id, true) }, new { @class = "btn btn-color float-left" })
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hometown)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        
+                        <td>
+                            @if ((item.Name.ToLower() == ("Display User").ToLower() || item.Name.ToLower() == ("Token Generator").ToLower()))
+                            {
+                                //item.is_active_directory_user == 0 &&
+                                if (item.Hometown != sm.user_name)
+                                {
+                                    @Html.ActionLink("Reset Password", "ResetPassword", "Account", new { userId = Cryptography.Encrypt(item.user_id, true) }, new { @class = "btn btn-color" })
+                                }
+                            }
+                        </td>
+                        <td hidden>
+                            @if (item.is_active == 1)
+                            {
+                                @Html.Label("Activated")
+                            }
+                            else
+                            {
+                                @Html.Label("Deactivated")
+                            }
+                        </td>
+                        <td hidden>
+                            @if (item.Hometown != sm.user_name)
+                            {
+                                if (item.is_active == 1)
+                                {
+                                    <button class="btn btn-color" onclick="SetActivationStatus('@item.user_id',0)">Deactivate</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-color" onclick="SetActivationStatus('@item.user_id',1)">Activate</button>
+                                }
+                            }
+                        </td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td>
+                                @if (item.Hometown != sm.user_name)
+                                {
+                                    if (item.Name == "Branch Admin" && item.branch_id > 0)
+                                    {
+                                        <button class="btn btn-color" onclick="UntagBranchVerify('@item.user_id','@item.branch_id','@sm.user_id','@item.user_branch_id','@item.branch_name')">Un Tag</button>
+                                    }
+                                }
+                            </td>
+                        }
+
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script src="~/Scripts/sqms/branch-user-V8.2.js"></script> @*File version changed from 8.0 to 8.1*@
+}

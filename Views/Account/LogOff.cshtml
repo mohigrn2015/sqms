@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Log Out";
+}
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="page-head-line">Please provide reason for logout</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <section id="loginForm">
+                    <form asp-controller="Account" asp-action="LogOff" method="post" class="form-horizontal" role="form">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                @Html.DropDownList("logout_type_id", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <button type="submit" class="btn btn-color">Log Off</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

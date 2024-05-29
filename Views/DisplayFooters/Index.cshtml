@@ -1,0 +1,95 @@
+﻿@model IEnumerable<SQMS.Models.tblDisplayFooter>
+@{
+    ViewBag.Title = "Display Footer Information";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Branch > List </h4>
+        <div class="row">
+            <div class="col-md-3" style="margin-bottom : 10px;">
+                <a href='@Url.Action("Create", "DisplayFooters")'>
+                    <button class="btn btn-color" style="margin-bottom : 10px;">New Display Footer</button>
+                </a>
+
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+                <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
+            </div>
+        </div>
+
+
+
+        <div class="col-md-12 scrollbar table-scroll">
+
+            <table class="table table-hover table-bordered" id="data">
+                <tr id="Hedding">
+                    <th></th>
+                    <th>
+                        @Html.DisplayName("National?")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Content (English)")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Content (Bangla)")
+                    </th>
+                    <th></th><th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @if (item.is_global == 0)
+                        {
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Set National", "SetNational", new { id = item.display_footer_id })
+                            </button>
+                        }
+                        
+                    </td>
+                    <td style="text-align:center">
+                        @if (item.is_global > 0)
+                        {
+                            @Html.DisplayName("Yes")
+                        }
+                        else
+                        {
+                            @Html.DisplayName("No")
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.content_en)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.content_bn)
+                    </td>
+                    <td>
+                        <button class="btn btn-color">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.display_footer_id })
+                        </button>
+
+                    </td>
+                    <td>
+                        @if (item.is_global == 0)
+                        {
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Delete", "Delete", new { id = item.display_footer_id })
+                            </button>
+                        }
+                        
+                    </td>
+                </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/sqms/branch.js"></script>
+
+}
+

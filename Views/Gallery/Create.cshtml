@@ -1,0 +1,73 @@
+﻿@model SQMS.Models.ViewModels.VMGalleryItem
+
+@{
+    ViewBag.Title = "Gallery Media Create";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Media > Create</h4>
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <form asp-controller="Gallery" asp-action="Create" name="myForm" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input type="hidden" asp-for="file_directory" />
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input asp-for="file_name" class="form-control Next" placeholder="File Name" name="file_name" />
+                            <span asp-validation-for="file_name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input type="file" asp-for="file_data" id="file_data" class="form-control" name="file_data" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>Supported Formats: </label> mpg, mpeg, avi, wmv, mp4, jpeg, jpg, png, gif, bmp<br />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button type="submit" id="submit_filedata" class="btn btn-color">Create</button>
+                            <a asp-action="Index" class="btn btn-color">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> 
+    <script src="~/Scripts/jquery-1.10.2.js" ></script>
+    <script src="~/Scripts/knockout-2.3.0.js"></script>
+    <script src="~/Scripts/knockout.validation.js"></script>
+
+<script>
+    async function AJAXSubmit(oFormElement) {
+        var resultElement = oFormElement.elements.namedItem("file_data");
+        const formData = new FormData(oFormElement);
+
+        try {
+            const response = await fetch(oFormElement.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                window.location.href = '/';
+            }
+
+            resultElement.value = 'Result: ' + response.status + ' ' +
+                response.statusText;
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+</script>

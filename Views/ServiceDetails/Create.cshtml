@@ -1,0 +1,344 @@
+﻿
+@model SQMS.Models.ViewModels.VMServiceDetails
+@using SQMS.Utility;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _session;
+@{
+    ViewBag.Title = "Customer Service";
+    SessionManager sm = new SessionManager(_session);
+}
+
+<link href="~/Content/themes/base/jquery-ui-V8.0.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+@* <script src="~/signalr/hubs"></script> *@
+
+<div class="container">
+    <div class="row">
+        <input type="hidden" id="hiduserId" name="hidUser" />
+        <input type="hidden" id="is_break" name="is_break" />
+        <input type="hidden" id="hid_counter_no" name="hid_counter_no" value="@(sm.counter_no)" />
+        <input type="hidden" id="hid_counter_id" name="hid_counter_id" value="@(sm.counter_id)" />
+        <input type="hidden" id="hid_user_id" name="hid_user_id" value="@(sm.user_id)" />
+        <div class="page-head-line" style="position:relative; font-weight:bold; padding-bottom:3px;">
+            <div style="position:relative; float:left;">
+                <h4>Customer Service > Create Service </h4>
+            </div>
+            <div style="position:relative; float:right">
+                Counter# @(sm.counter_no), &gt;&gt; Token # <span id="update-message"></span>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <input type="hidden" id="hidtokenNo" name="hidtokenNo" />
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                </div>
+            </div>
+        </div>
+        <div class="row" style="text-align:center">
+            <div class="col-md-2" style="text-align:center">
+                <button type="submit" onclick="Recall()" class="btn-squere-xl  btn-color marzin-bottom" id="newService_btn">
+                    <span><i class="fa fa-bullhorn"></i></span> Recall
+                </button>
+                <button type="submit" onclick="ManualCall()" class="btn-squere-xl  btn-color marzin-bottom" id="manual_call_btn">
+                    <span><i class="fa fa-user-plus"></i></span>Call Token
+                </button>
+                <button type="submit" onclick="Transfer()" class="btn-squere-xl  btn-color marzin-bottom" id="Transfer_btn">
+                    <span><i class="fa fa-cart-arrow-down"></i></span>Counter Transfer
+                </button>
+                <button type="submit" onclick="loadMissingListDialog()" class="btn-squere-xl  btn-color marzin-bottom" id="missing_btn">
+                    <span><i class="fa fa-list"></i></span>Missing List
+                </button>
+            </div>
+            <div class="col-md-7" style="text-align:center">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="background-color:#555555; color:white">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                    Token Information
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div style="position:relative">
+                                    <div style="position:relative; float:left">
+                                        Service Type:
+                                    </div>
+                                    <div style="position:relative; float:right">
+                                        <input type="text" class="form-control Next" id="txtServiceType" placeholder="Service Type" name="service_type_name">
+                                    </div>
+                                    <div style="clear:both"></div>
+                                </div>
+                                <div style="position:relative">
+                                    <div style="position:relative; float:left">
+                                        Token Issue Time:
+                                    </div>
+                                    <div style="position:relative; float:right">
+                                        <input type="text" class="form-control Next" id="txtgnTime" placeholder="Generation Time" name="generate_time">
+                                    </div>
+                                    <div style="clear:both"></div>
+                                </div>
+                                <div style="position:relative">
+                                    <div style="position:relative; float:left">
+                                        Token Call Time:
+                                    </div>
+                                    <div style="position:relative; float:right">
+                                        <input type="text" class="form-control Next" id="txtCallTime" placeholder="Call Time" name="call_time">
+                                    </div>
+                                    <div style="clear:both"></div>
+                                </div>
+                                <div style="position:relative">
+                                    <div style="position:relative; float:left">
+                                        Waiting Time:
+                                    </div>
+                                    <div style="position:relative; float:right">
+                                        <input type="text" class="form-control Next" id="txtWtTime" placeholder="Waiting Time" name="waitingtime">
+                                    </div>
+                                    <div style="clear:both"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="background-color:#555555; color:white">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                    Service Information
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body" style="padding-top:5px">
+                                <div class="row" style="position:relative; padding-top:10px;">
+                                    <div class="col-lg-3 col-md-3 col-sm-3" style="position:relative; float:left; text-align:left">
+                                        Service Start Time:
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9" style="position:relative; float:right">
+                                        <input type="text" class="form-control Next" id="start_time" placeholder="Service Start Time" name="start_time">
+                                    </div>
+                                </div>
+                                <div class="row" style="position:relative; padding-top:10px;">
+                                    <div class="col-lg-3 col-md-3 col-sm-3" style="position:relative; float:left; text-align:left">
+                                        Service:
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9" style="position:relative; float:right">
+                                        <input type="hidden" id="service_sub_type_id" name="service_sub_type_id" />
+                                        <input type="text" class="form-control Next" id="service_sub_type_name" placeholder="Add a Service" name="service_sub_type_name">
+                                    </div>
+                                </div>
+                                <div class="row" style="position:relative; padding-top:10px;">
+                                    <div class="col-lg-3 col-md-3 col-sm-3" style="position:relative; float:left; text-align:left">
+                                        Mobile No:
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5" style="position:relative; float:left">
+                                        <input type="text" class="form-control Next" id="txtContact" placeholder="Mobile No" name="contact_no" pattern=".{{9}}">
+                                        @Html.ValidationMessageFor(m => m.contact_no)
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2" style="position:relative; float:left; text-align:left">
+                                        <input type="checkbox" checked="checked" id="is_primary_contact" class="Next" />Is Primary
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-1" style="position:relative; float:left; text-align:left">
+                                        <button class="btn btn-color" onclick="GetCustomerInformation()">History</button>
+                                    </div>
+                                </div>
+                                <div class="row" style="position:relative; padding-top:10px;">
+                                    <div class="col-lg-3 col-md-3 col-sm-3" style="position:relative; float:left; text-align:left">
+                                        Handset Category:
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5" style="position:relative; float:left">
+                                        <input type="text" class="form-control Next" id="txtHandsetCategory" placeholder="Handset Category" readonly>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4" style="position:relative; float:left; text-align:left">
+                                        Device Loan Eligibility: <span class="dummy_device_loan" style="font-weight: bold;"></span>
+                                    </div>
+                                </div>
+                                <div class="row" style="position:relative; padding-top:10px;">
+                                    <div class="col-lg-3 col-md-3 col-sm-3" style="position:relative; float:left; text-align:left">
+                                        Issue:
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9" style="position:relative; float:right">
+                                        <textarea class="form-control Next" id="txtIssues" rows="1" placeholder="Issues" name="issues" required></textarea>
+                                        @Html.ValidationMessageFor(m => m.issues)
+                                    </div>
+                                </div>
+                                <div class="row" style="position:relative; padding-top:10px;">
+                                    <div class="col-lg-3 col-md-3 col-sm-3" style="position:relative; float:left; text-align:left">
+                                        Solution:
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9" style="position:relative; float:right">
+                                        <textarea class="form-control Next" id="txtSolutions" rows="1" placeholder="Solutions" name="solutions"></textarea>
+                                        @Html.ValidationMessageFor(m => m.solutions)
+                                    </div>
+                                </div>
+                                <div class="row" style="position:relative; font-size:large; margin:3%">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 btn-color" style="position: relative; float: left; pointer-events:none">
+                                        Timer:
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 btn-color" style="position: relative; float:right; pointer-events: none;" id="txtServiceTimer">
+                                        <span id="txtServiceTimerHour">00</span>H:
+                                        <span id="txtServiceTimerMinute">00</span>M:
+                                        <span id="txtServiceTimerSecond">00</span>S
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <button class="btn btn-color" style="cursor:pointer" onclick="loadDashboardCounterStatusDialog()">
+                            Counter Status
+                        </button>
+                        <button class="btn btn-color" style="cursor:pointer" onclick="loadDashboardUserStatusDialog()">
+                            User Status
+                        </button>
+                        <button class="btn btn-color" style="cursor:pointer" onclick="loadDashboardBranchListDialog()">
+                            Service List
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2" style="text-align:center">
+                <button type="submit" onclick="AddService()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn" data-toggle="modal" data-target="#myModalSave">
+                    <span><i class="fa fa-plus-square"></i></span>Add Service
+                </button>
+                <button type="submit" onclick="SaveNext()" class="btn-squere-xl  btn-color marzin-bottom" id="saveNext_btn">
+                    <span><i class="fa fa-chevron-circle-right"></i></span>Next
+                </button>
+                <button type="submit" onclick="CancelNext()" class="btn-squere-xl  btn-color marzin-bottom" id="cancelNext_btn">
+                    <span><i class="fa fa-times-circle"></i></span>Customer Missing
+                </button>
+                <button type="submit" onclick="loadBreakDialog()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn" data-toggle="modal" data-target="#myModalSave">
+                    <span><i class="fa fa-coffee demo"></i></span>Break
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="div-history" title="Previous Service History">
+    <div id="historyDiv" class="row">
+        <table class="table table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Issues</th>
+                    <th>Solutions</th>
+                </tr>
+            </thead>
+            <tbody id="tablebody"></tbody>
+        </table>
+    </div>
+</div>
+
+<div id="div-services" title="Service List" style="color: #FFCB24">
+    <div id="div-type">
+        <select name="service_type_id" class="form-control" id="service_type_id" required>
+@*             <option value="0">Service Types</option>
+ *@            @foreach (var item in ViewBag.service_type_id)
+            {
+                <option value="@item.service_type_id">@item.service_type_name</option>
+            }
+        </select>
+    </div>
+    <div id="div-sub-type" class="row" style="border:1px solid #FFCB24;
+            padding-top:5px;
+            text-align:left;
+            padding-left:5px;
+            margin-top:25px;
+            margin-right:0px;
+            margin-left:0px;">
+    </div>
+
+</div>
+<div id="dialog-url-break" title="Information">
+
+</div>
+
+<div id="dialog-url-dashboard" title="Information">
+
+</div>
+
+<div id="dialog-url-skipped" title="Information">
+
+</div>
+
+<div id="dialog-notification-list" title="Notification History">
+    <table class="table table-hover table-bordered user-notification-table" id="tblUserNotification">
+        <thead>
+            <tr id="Hedding">
+                <th>Date</th>
+                <th>Sender</th>
+                <th>Content</th>
+                <th>Status</th>
+                <th>Attachment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table body content will be dynamically populated -->
+        </tbody>
+    </table>
+</div>
+
+
+<div class="modal fade" id="mdlNotificationModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content notify-content">
+            <div class="modal-body">
+                <div>
+                    <img src="~/img/warning.png" class="notify-warning" />
+                </div>
+                <input type="hidden" id="hdnNotificationId" name="hdnNotificationId" />
+                <div class="notify_message_area">
+                    <h3 class="notify-header">Attention</h3>
+                    <p class="notify-message">
+
+                    </p>
+                </div>
+                <div class="notify-btn-area">
+                    @*data-dismiss="modal"*@
+                    <button type="button" class="btn btn-color btn-close" onclick="SeenNotfication();">OK</button>
+                    <a class="btn btn-color btn-attachment" href="#" style="display: none" target="_blank">View Attachment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdlRefreshReasonModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content notify-content">
+            <div class="modal-body">
+                <div class="notify_message_area">
+                    <h3 class="notify-message">System has detected a refresh while a service was on going. Please state the reason for refresh.</h3>
+                    <textarea id="refeshReason" style="color:black; width:100%"> </textarea>
+                </div>
+                <div class="notify-btn-area">
+                    <button type="button" class="btn btn-color btn-close" onclick="RefreshReasonSave();">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/modal/modal-V8.0.js"></script>
+    <script src="~/Scripts/modal/tab.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/modal/jquery-1.12.4.js"></script>
+    <script src="~/Scripts/datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/modal/bootstrap.min.js"></script>
+    <script src="~/Scripts/modal/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+    <script src="~/Scripts/sqms/signalr.min.js"></script>
+    @* <script src="~/signalr/hubs"></script> *@
+    <script src="~/Scripts/sqms/date.js"></script>
+    <script src="~/Scripts/sqms/service-details-v8.4.js"></script>
+    <script src="~/Scripts/sqms/HackTimerWorker.js"></script>
+    <script src="~/Scripts/sqms/HackTimer.js"></script>
+}

@@ -1,0 +1,39 @@
+﻿@model SQMS.Models.tblPlayList
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/knockout-2.3.0.js"></script>
+<script src="~/Scripts/knockout.validation.js"></script>
+
+@{
+    ViewBag.Title = "Play List Create";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Play List > Create</h4>
+
+        <div class="col-md-12">
+            <form asp-action="Create" asp-controller="PlayLists" method="post">
+                <div class="form-horizontal">
+                    <input asp-for="playlist_id" type="hidden" />
+                    <input asp-for="is_global" type="hidden" />
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input asp-for="playlist_name" class="form-control Next" placeholder="Playlist Name" />
+                            <span asp-validation-for="playlist_name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <button type="submit" class="btn btn-color">Create</button>
+                            <a asp-action="Index" class="btn btn-color">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+                @Html.AntiForgeryToken()
+            </form>
+        </div>
+    </div>
+</div>

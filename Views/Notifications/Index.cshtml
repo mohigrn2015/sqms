@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SQMS.Models.tblNotification>
+@{
+    ViewBag.Title = "Notifications";
+}
+
+
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Notification > List</h4>
+
+        <a asp-action="Create" asp-controller="Notifications" class="btn btn-color" style="margin-bottom: 10px;">Create New Notification</a>
+        <div class="col-md-12">
+
+            <table class="table table-hover table-bordered" id="data">
+                <thead>
+                    <tr id="Hedding">
+                        <th style="display: none;">ID</th>
+                        <th>Date</th>
+                        <th>Sent Now</th>
+                        <th>Content</th>
+                        <th>Create Date</th>
+                        <th>Attachment</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="display: none;">@item.notification_id</td>
+                            <td>@item.notification_date_time.ToString("dd/MM/yyyy hh:mm:tt")</td>
+                            <td>@(item.sent_now ? "Yes" : "No")</td>
+                            <td>@item.message</td>
+                            <td>@string.Format("{0:dd/MM/yyyy hh:mm tt}", item.created_date)</td>
+                            <td>
+                                @if (item.have_attachment)
+                                {
+                                    <span>
+                                        <a asp-action="ViewAttachment" asp-controller="Notifications" asp-route-id="@item.notification_id" class="btn btn-color" target="_blank">View</a>
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                @if (!item.sent_now && item.notification_date_time > DateTime.Now)
+                                {
+                                    <span>
+                                        <a asp-action="Edit" asp-controller="Notifications" asp-route-id="@item.notification_id" class="btn btn-color">Edit</a>
+                                    </span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/datatable/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#data').DataTable({
+                "order": [[0, "desc"]],
+            });
+        });
+    </script>
+}

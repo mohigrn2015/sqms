@@ -1,0 +1,67 @@
+﻿@model SQMS.Models.tblCustomer
+@{
+    ViewBag.Title = "Cusmoer Info Edit";
+}
+<div class="container">
+    <div class="row" style="margin-bottom : 10px;">
+
+        <h4 class="page-head-line">Customer > Edit</h4>
+
+        <form>
+            <div class="form-horizontal">
+                <input asp-for="customer_id" type="hidden" />
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <label asp-for="customer_name" class="control-label"></label>
+                        <input asp-for="customer_name" class="form-control" placeholder="Customer Name" />
+                        <span asp-validation-for="customer_name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <label asp-for="contact_no" class="control-label"></label>
+                        <input asp-for="contact_no" class="form-control" placeholder="Contact No" />
+                        <span asp-validation-for="contact_no" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <label asp-for="address" class="control-label"></label>
+                        <input asp-for="address" class="form-control" placeholder="Address" />
+                        <span asp-validation-for="address" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <label asp-for="tblCustomerType.customer_type_id" class="control-label"></label>
+                        <select class="form-control" id="service_sub_type_id" required>
+                            @foreach (var item in ViewBag.type_id)
+                            {
+                                <option value="@item.Customer_type_id">@item.customer_type_name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="tblCustomerType.customer_type_id" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <input type="submit" value="Save" class="btn btn-color" />
+                        <button class="btn btn-color">
+                            @Html.ActionLink("Back to List", "Index")
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/knockout.validation.js"></script>

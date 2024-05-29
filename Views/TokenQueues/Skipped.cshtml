@@ -1,0 +1,119 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using SQMS.Utility
+@model IEnumerable<SQMS.Models.ViewModels.VMTokenSkipped>
+@{
+    Layout = null;
+}    
+
+<div class="container" style="width:900px">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-1">
+                <label class="control-label">Branch:</label>
+            </div>
+            <div class="col-md-3" style="margin-bottom :10px;">
+
+                <select name="branch_name" class="form-control" id="branch_name">
+                    <option value="">All Branch</option>
+                    @foreach (var item in ViewBag.branchList)
+                    {
+                        if (item.branch_id == ViewBag.userBranchId)
+                        {
+                            <option value="@item.branch_id" selected="selected">@item.branch_name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.branch_id">@item.branch_name</option>
+                        }
+
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="col-md-5"></div>
+            <div class="col-md-3">
+                <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
+            </div>
+        </div>
+        <div class="col-md-12 scrollbar table-scroll" style="margin-bottom : 20px;">
+
+            <table class="table table-hover table-bordered table-responsive" id="data-skipped">
+                <tr id="Hedding" style="text-align: center">
+                    <th>
+                        @Html.DisplayName("Branch Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Counter No")
+                    </th>
+                    <th>
+                        @Html.DisplayName("User Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Token No")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Contact No")
+                    </th>
+
+                    <th>
+                        @Html.DisplayName("Cancel Time")
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr id="@item.token_id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.branch_name)
+                        </td>
+                        <td id="token" style="text-align : center;">
+
+                            @Html.DisplayFor(modelItem => item.counter_no)
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.user_full_name)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.token_no_formated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.contact_no)
+                        </td>
+
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.cancel_time)
+                        </td>
+                        <td>
+
+                            <button type="submit" onclick="TokenReInitiate(@item.token_id)" value="Re-Initiate" class="btn  btn-color marzin-bottom" id="reinitiate_btn">Re-Initiate</button>
+                            <button type="submit" onclick="TokenAssignToMe(@item.token_id)" class="btn  btn-color marzin-bottom" id="reinitiate_btn">Asign to Me</button>
+
+
+                        </td>
+
+                    </tr>
+
+
+                }
+
+
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+
+    SelectBranch();
+</script>

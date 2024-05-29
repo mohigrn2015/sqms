@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using SQMS.Utility;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title -Smart Queuee Management</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/assets/css/bootstrap-V8.0.css" rel="stylesheet" />
+    <link href="~/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/assets/css/style-V8.1.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+    
+</head>
+<body>
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <section class="menu-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="navbar-collapse collapse ">
+                            <ul id="menu-top" class="nav navbar-nav navbar-right" style="width: 100%">
+                                @Html.Partial("_Menu")
+                                @Html.Partial("_LoginPartial")
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    }
+
+    @RenderBody()
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="www.subrasystems.com">
+                        Developed By: NAAS Solutions Ltd.
+
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/respond.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/sqms/global.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

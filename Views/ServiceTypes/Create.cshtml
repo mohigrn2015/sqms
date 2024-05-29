@@ -1,0 +1,31 @@
+﻿@model SQMS.Models.tblServiceType
+@{
+    ViewData["Title"] = "Service Type Create";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Service Type > Create</h4>
+        <div class="col-md-5">
+            <form asp-action="Create" asp-controller="ServiceTypes" method="post">
+                <div class="form-horizontal">
+                    <input asp-for="service_type_id" type="hidden" />
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Type Name</label>
+                        <div class="col-md-8">
+                            <input asp-for="service_type_name" class="form-control" placeholder="Type Name" />
+                            <span asp-validation-for="service_type_name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input type="submit" value="Create" class="btn btn-color" />
+                            <a asp-action="Index" asp-controller="ServiceTypes" class="btn btn-color">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

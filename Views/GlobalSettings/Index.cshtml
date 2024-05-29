@@ -1,0 +1,92 @@
+﻿@model SQMS.Models.tblGlobalSettings
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Global Settings</h4>
+        <div class="col-md-7">
+            <form asp-controller="GlobalSettings" asp-action="Edit" method="post" class="form-horizontal" role="form">
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <label asp-for="tat_visibility_time" class="control-label"></label>
+                    </div>
+                    <div class="col-md-7">
+                        <select asp-for="tat_visibility_time" class="form-control" asp-items="ViewBag.PopUpDuration" required></select>
+                        <span asp-validation-for="tat_visibility_time" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <label asp-for="notification_visibility_days" class="control-label"></label>
+                    </div>
+                    <div class="col-md-7">
+                        <select asp-for="notification_visibility_days" class="form-control" asp-items="ViewBag.NotificationVisibilityDaysList" required></select>
+                        <span asp-validation-for="notification_visibility_days" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <label asp-for="is_msg_bn" class="control-label"></label>
+                    </div>
+                    <div class="col-md-7">
+                        <input asp-for="is_msg_bn" class="is_msg_bn_CheckBox" readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <label asp-for="default_token_prefix" class="control-label"></label>
+                    </div>
+                    <div class="col-md-7">
+                        <input asp-for="default_token_prefix" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <label asp-for="padding_left" class="control-label"></label>
+                    </div>
+                    <div class="col-md-7">
+                        <select asp-for="padding_left" class="form-control" asp-items="ViewBag.PopUpDuration" required readonly></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <label asp-for="msg_text" class="control-label"></label>
+                        <img src="~/img/info.png" style="height:22px; cursor:pointer" alt="Information" title="{0} is for counter number." />
+                    </div>
+                    <div class="col-md-7">
+                        <textarea asp-for="msg_text" class="form-control" readonly></textarea>
+                    </div>
+                </div>
+                <div class="form-group" hidden>
+                    <div class="col-md-5">
+                        <label asp-for="display_footer_ad" class="control-label"></label>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea asp-for="display_footer_ad" class="form-control" readonly></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <label asp-for="report_csv_separator" class="control-label"></label>
+                    </div>
+                    <div class="col-md-7">
+                        <select asp-for="report_csv_separator" class="form-control" asp-items="ViewBag.separetorList" required readonly></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <button type="submit" class="btn btn-color">Save</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/sqms/global-settings-V8.0.js"></script>
+}

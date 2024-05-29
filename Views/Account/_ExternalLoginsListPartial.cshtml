@@ -1,0 +1,34 @@
+﻿@model SQMS.Models.ExternalLoginListViewModel
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+<h4>Use another service to log in.</h4>
+<hr />
+@if (SignInManager.IsSignedIn(User))
+{
+    var externalLogins = await SignInManager.GetExternalAuthenticationSchemesAsync();
+    if (externalLogins.Count() == 0)
+    {
+        <div>
+            <p>
+                There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support logging in via external services.
+            </p>
+        </div>
+    }
+    else
+    {
+        <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" id="externalLoginForm">
+            @Html.AntiForgeryToken()
+            <div id="socialLoginList">
+                <p>
+                    @foreach (var login in externalLogins)
+                    {
+                        <button type="submit" class="btn btn-default" id="@login.Name" name="provider" value="@login.Name" title="Log in using your @login.DisplayName account">@login.DisplayName</button>
+                    }
+                </p>
+            </div>
+        </form>
+    }
+}

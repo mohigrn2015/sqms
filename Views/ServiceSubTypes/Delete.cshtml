@@ -1,0 +1,36 @@
+﻿@model SQMS.Models.tblServiceSubType
+
+@{
+    ViewData["Title"] = "Service Sub Type Delete";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Service Sub Type > Delete</h4>
+        <hr />
+        <div class="col-lg-offset-3 col-md-6">
+            <h3>Are you sure you want to delete this?</h3>
+            <dl class="dl-horizontal">
+                <dt>Service Sub Type Name</dt>
+                <dd>@Model.service_sub_type_name</dd>
+
+                <dt>Max Duration</dt>
+                <dd>@Model.max_duration</dd>
+
+                <dt>Service Type Name</dt>
+                <dd>@Model.tblServiceType.service_type_name</dd>
+            </dl>
+
+            <form asp-action="Delete" asp-controller="ServiceSubTypes" method="post">
+                <input type="hidden" asp-for="service_sub_type_id" />
+                @Html.AntiForgeryToken()
+
+                <div class="col-lg-offset-1 form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-color" />
+                    <a asp-action="Index" asp-controller="ServiceSubTypes" class="btn btn-color">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br />
+<div></div>

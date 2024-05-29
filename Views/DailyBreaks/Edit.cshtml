@@ -1,0 +1,58 @@
+﻿@model SQMS.Models.tblDailyBreak
+
+@{
+    ViewBag.Title = "Daily Break Edit";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+    <h4>Break > Edit</h4>
+    <form method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>tblDailyBreak</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="daily_break_id" />
+            <input type="hidden" asp-for="break_type_id" />
+            <input type="hidden" asp-for="user_id" />
+            <input type="hidden" asp-for="start_time" />
+
+            <div class="form-group">
+                <label asp-for="end_time" class="control-label col-md-2"></label>
+                <div class="col-md-10">
+                    <input asp-for="end_time" class="form-control" />
+                    <span asp-validation-for="end_time" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="remarks" class="control-label col-md-2"></label>
+                <div class="col-md-10">
+                    <input asp-for="remarks" class="form-control" />
+                    <span asp-validation-for="remarks" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-default">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>
